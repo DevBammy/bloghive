@@ -1,0 +1,84 @@
+@use '../../styles/variables' as *;
+
+.header {
+  width: 100%;
+  height: 12vh;
+  background-color: $card;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .header__logo {
+    cursor: pointer;
+    font-weight: bolder;
+
+    h1 {
+      font-size: 2rem;
+      color: $blue;
+    }
+  }
+
+  .search {
+    flex: 1;
+    margin-left: 4rem;
+    background-color: $bg-alt;
+    width: 100%;
+    height: max-content;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: none;
+    outline: none;
+    box-shadow: $shadow-alt;
+
+    &:hover {
+      background-color: transparent;
+      border: 2px solid $bg-alt;
+    }
+
+    input {
+      width: 90%;
+      height: 100%;
+      background-color: transparent;
+    }
+    button {
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: $text;
+      cursor: pointer;
+
+      .icon {
+        font-size: 1.6rem;
+        color: $card;
+      }
+    }
+  }
+
+  .nav {
+    flex: 1;
+    margin-left: 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .header__nav__left,
+    .header__nav__right {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      a {
+        margin-right: 1rem;
+      }
+    }
+    .header__nav__right {
+      justify-content: flex-end;
+    }
+  }
+}

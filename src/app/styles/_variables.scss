@@ -1,13 +1,24 @@
 // styles/_variables.scss
 
+$font-syne-sans: 'Syne', sans-serif;
+$font-urbanist-sans: 'Urbanist', sans-serif;
+$bg: #fdfbf5;
+$bg-alt: #f5f2f2;
+$text: #191919;
+$text-alt: #878787;
+$blue: #002366;
+$card: #ffffff;
+$shadow: rgba(0, 0, 0, 0.16) 0px 1px 14px;
+$shadow-alt: rgba(0, 0, 0, 0.16) 0px 1px 2px;
+
 @mixin xs {
-  @media (max-width: 360px) {
+  @media (max-width: 369px) {
     @content;
   }
 }
 
 @mixin sm {
-  @media (min-width: 461px) and (max-width: 767px) {
+  @media (min-width: 370px) and (max-width: 767px) {
     @content;
   }
 }
