@@ -1,4 +1,5 @@
 import { Syne, Urbanist } from 'next/font/google';
+import Layout from '@/components/Layout';
 import './globals.scss';
 
 const SyneSans = Syne({
@@ -19,7 +20,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${SyneSans.variable} ${UrbanistSans.variable} layout`}>
-        {children}
+        <Layout>{children}</Layout>
       </body>
     </html>
   );
