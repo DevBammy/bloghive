@@ -1,0 +1,97 @@
+@use '../../styles/variables' as *;
+
+.footer {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: $text;
+  padding: 2rem;
+  margin: 1rem 0;
+  border-radius: 1rem;
+
+  h2,
+  p {
+    color: $card;
+    margin-bottom: 1rem;
+  }
+
+  .ctas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .row {
+    width: 90%;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-start;
+    justify-content: center;
+    grid-gap: 2rem;
+    margin: 2rem auto 0 auto;
+
+    .col {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      h3 {
+        color: $card;
+        margin-bottom: 1rem;
+      }
+
+      .footerNav {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.5rem;
+
+        a {
+          color: $card;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .bottom {
+    position: absolute;
+    bottom: 10px;
+    width: 70%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 1.3rem;
+      color: $card;
+      span {
+        color: $text-alt;
+      }
+    }
+
+    p {
+      font-size: 1rem;
+      a {
+        color: $card;
+        margin-left: 0.3rem;
+        color: $text-alt;
+        text-decoration: underline;
+      }
+    }
+  }
+}

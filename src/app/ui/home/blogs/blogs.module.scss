@@ -1,0 +1,24 @@
+@use '../../../styles/variables.scss' as *;
+
+.blogs {
+  width: 100%;
+  height: max-content;
+  margin: 2rem 0;
+
+  .latest__blogs {
+    width: 100%;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    align-items: flex-start;
+    justify-content: space-between;
+    grid-gap: 2rem;
+    margin: 2rem 0;
+  }
+
+  button {
+    display: flex;
+    justify-self: center;
+    margin: 4rem 0;
+  }
+}

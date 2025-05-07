@@ -83,6 +83,31 @@ section {
   text-decoration: none;
   border-radius: 0.5rem;
 }
+.btn_white {
+  text-align: center;
+  padding: 1rem 2rem;
+  background-color: var(--textAlt);
+  display: inline-block;
+  color: var(--card);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-decoration: none;
+  border-radius: 0.5rem;
+}
+.btn_border {
+  text-align: center;
+  padding: 1rem 2rem;
+  background-color: transparent;
+  display: inline-block;
+  color: var(--card);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: capitalize;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  border: 1px solid var(--card);
+}
 
 .btn:hover {
   opacity: 0.9;
