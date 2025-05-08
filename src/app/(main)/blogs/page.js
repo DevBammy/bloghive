@@ -1,5 +1,5 @@
-const Page = () => {
+const BlogPage = () => {
   return <section className="page">Page - Blogs page</section>;
 };
 
-export default Page;
+export default BlogPage;
