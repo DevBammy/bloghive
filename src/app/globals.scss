@@ -196,7 +196,8 @@ span {
     max-width: 996px;
   }
 
-  @include lg {
-    max-width: 1366px;
-  }
+  // @include lg {
+  //   max-width: 100%;
+  //   padding: 0 5%;
+  // }
 }

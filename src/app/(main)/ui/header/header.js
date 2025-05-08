@@ -23,8 +23,8 @@ const Header = () => {
           <Link href="/about">About Us</Link>
         </nav>
         <nav className={styles.header__nav__right}>
-          <Link href="/register">Sign Up</Link>
-          <Link href="/" className="btn">
+          <Link href="/auth/register">Sign Up</Link>
+          <Link href="/auth/login" className="btn">
             Login
           </Link>
         </nav>
