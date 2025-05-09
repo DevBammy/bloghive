@@ -12,6 +12,13 @@
     margin: 2rem 0;
     border-bottom: 2px solid $text;
 
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 0;
+      margin: 1rem 0;
+    }
+
     h1 {
       background-color: $bg-alt;
     }
@@ -19,6 +26,20 @@
     p {
       font-weight: 600;
       font-size: 1.5rem;
+    }
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ol {
+    li {
+      margin-bottom: 1rem;
     }
   }
 }

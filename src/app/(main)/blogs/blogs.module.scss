@@ -83,8 +83,24 @@
     grid-template-columns: 80% 20%;
     padding: 2rem 0;
 
+    @include sm {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+    @include xs {
+      grid-template-columns: 1fr;
+      padding: 0;
+    }
+
     h1 {
       font-size: 3.5rem;
+
+      @include sm {
+        font-size: 1.6rem;
+      }
+      @include xs {
+        font-size: 1.6rem;
+      }
     }
 
     .right {
@@ -96,6 +112,19 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: space-between;
+
+      @include xs {
+        border-left: 0;
+        padding-left: 0;
+        flex-direction: row;
+        padding: 0;
+      }
+      @include sm {
+        border-left: 0;
+        padding-left: 0;
+        flex-direction: row;
+        padding: 0;
+      }
 
       span {
         color: $text-alt;
@@ -113,6 +142,13 @@
     height: 96vh;
     border-radius: 1rem;
     overflow: hidden;
+
+    @include xs {
+      height: 70vh;
+    }
+    @include sm {
+      height: 70vh;
+    }
   }
 
   .blogBody {
@@ -127,9 +163,27 @@
       grid-template-columns: 80% 20%;
       padding: 2rem 0;
 
+      @include xs {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      @include sm {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
       .col {
         &:first-child {
           padding-right: 2rem;
+
+          @include xs {
+            padding: 0;
+            text-align: justify;
+          }
+          @include sm {
+            padding: 0;
+            text-align: justify;
+          }
         }
         &:last-child {
           border-left: 2px solid $text;
@@ -140,6 +194,13 @@
           flex-direction: column;
           align-items: flex-start;
           justify-content: flex-start;
+
+          @include xs {
+            border-left: 0;
+          }
+          @include sm {
+            border-left: 0;
+          }
 
           h3 {
             font-size: 1.2rem;
@@ -193,5 +254,12 @@
     grid-gap: 1rem;
     align-items: flex-start;
     justify-content: center;
+
+    @include xs {
+      grid-template-columns: 1fr;
+    }
+    @include sm {
+      grid-template-columns: 1fr;
+    }
   }
 }
