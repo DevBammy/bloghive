@@ -1,0 +1,24 @@
+@use '../../styles/variables' as *;
+
+.aboutPage {
+  width: 100%;
+  height: max-content;
+
+  .title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    border-bottom: 2px solid $text;
+
+    h1 {
+      background-color: $bg-alt;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+  }
+}

@@ -5,9 +5,9 @@ import styles from './header.module.scss';
 const Header = () => {
   return (
     <section className={styles.header}>
-      <div className={styles.header__logo}>
+      <Link href="/" className={styles.header__logo}>
         <h1>BlogHive</h1>
-      </div>
+      </Link>
       <div className={styles.search}>
         <input type="text" placeholder="What are you looking for?" />
 

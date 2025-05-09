@@ -43,3 +43,128 @@
     padding: 2rem 0;
   }
 }
+
+.blogDetails {
+  width: 100%;
+  height: max-content;
+  min-height: 80vh;
+
+  .title {
+    width: 100%;
+    height: 350px;
+    display: grid;
+    grid-template-columns: 80% 20%;
+    padding: 2rem 0;
+
+    h1 {
+      font-size: 3.5rem;
+    }
+
+    .right {
+      border-left: 2px solid $text;
+      padding-left: 2rem;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+
+      span {
+        color: $text-alt;
+      }
+      p {
+        color: $text;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .blogImage {
+    width: 100%;
+    height: 96vh;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+
+  .blogBody {
+    width: 100%;
+    height: max-content;
+    min-height: 100vh;
+
+    .row {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 80% 20%;
+      padding: 2rem 0;
+
+      .col {
+        &:first-child {
+          padding-right: 2rem;
+        }
+        &:last-child {
+          border-left: 2px solid $text;
+          padding-left: 2rem;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+
+          h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+          }
+
+          .authorImage {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+          }
+
+          h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+          }
+
+          p {
+            margin-bottom: 4rem;
+          }
+        }
+        .socialShare {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+
+          a {
+            font-size: 1.4rem;
+          }
+        }
+      }
+    }
+  }
+
+  .relatedNewsTitle {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-top: 2px solid $text;
+  }
+  .relatedNews {
+    width: 100%;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    align-items: flex-start;
+    justify-content: center;
+  }
+}
