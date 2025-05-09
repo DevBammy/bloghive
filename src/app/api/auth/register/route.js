@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import { connectToDB } from '@/lib/mongodb';
 import User from '@/models/User';
 import bcrypt from 'bcryptjs';
@@ -25,7 +26,7 @@ export async function POST(req) {
       password: hashedPassword,
     });
 
-    return Response.json(
+    return NextResponse.json(
       {
         message: 'User registered successfully',
         user: {

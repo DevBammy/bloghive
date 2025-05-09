@@ -1,6 +1,7 @@
 // app/(auth)/layout.js
 import { Syne, Urbanist } from 'next/font/google';
 import '../globals.scss';
+import AuthProvider from '../providers/SessionProvider';
 
 const SyneSans = Syne({
   variable: '--font-syne-sans',
@@ -20,7 +21,7 @@ export default function AuthLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${SyneSans.variable} ${UrbanistSans.variable} layout`}>
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );
