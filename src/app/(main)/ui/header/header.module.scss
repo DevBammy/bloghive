@@ -7,6 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 5%;
 
   .header__logo {
     cursor: pointer;
@@ -58,9 +59,17 @@
         color: $card;
       }
     }
+
+    @include xs {
+      display: none;
+    }
+    @include sm {
+      display: none;
+    }
   }
 
   .nav {
+    position: relative;
     flex: 1;
     margin-left: 4rem;
     display: flex;
@@ -69,16 +78,73 @@
 
     .header__nav__left,
     .header__nav__right {
-      flex: 1;
       display: flex;
       align-items: center;
       justify-content: space-between;
       a {
         margin-right: 1rem;
       }
+
+      @include sm {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+
+        a {
+          color: $bg;
+          font-size: 2rem;
+          margin-bottom: 1rem;
+        }
+      }
     }
     .header__nav__right {
       justify-content: flex-end;
     }
+
+    span {
+      font-weight: bold;
+
+      @include sm {
+        color: $bg;
+        font-size: 1.5rem;
+      }
+    }
+
+    @include sm {
+      position: fixed;
+      top: 0;
+      right: -120%;
+      height: 100vh;
+      width: 90%;
+      background-color: $blue;
+      border-radius: 2rem 0 0 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &.showMobileNav {
+      right: 0;
+    }
+
+    .closeBtn {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+
+      .icon {
+        color: $bg;
+        font-size: 3rem;
+      }
+    }
+  }
+
+  .icon {
+    font-size: 1.6rem;
+    cursor: pointer;
+    color: $blue;
   }
 }

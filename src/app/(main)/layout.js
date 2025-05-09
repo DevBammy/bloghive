@@ -2,7 +2,6 @@ import { Syne, Urbanist } from 'next/font/google';
 import Header from './ui/header/header';
 import Footer from './ui/footer/footer';
 import AuthProvider from '../providers/SessionProvider';
-import { ToastContainer, toast } from 'react-toastify';
 import '../globals.scss';
 
 const SyneSans = Syne({
@@ -27,7 +26,6 @@ export default function RootLayout({ children }) {
           <Header />
           {children}
           <Footer />
-          <ToastContainer />
         </AuthProvider>
       </body>
     </html>

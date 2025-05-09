@@ -5,17 +5,27 @@ import { useState } from 'react';
 import Image from 'next/image';
 import LoginImage from '../../../../public/blog21.jpg';
 import { HiMiniArrowLongUp } from 'react-icons/hi2';
+import { FaGoogle } from 'react-icons/fa6';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 import styles from './login.module.scss';
 
 const Page = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+    if (!email || !password) {
+      toast.error('Fill in all fields');
+      setLoading(false);
+      return;
+    }
 
     const res = await signIn('credentials', {
       redirect: false,
@@ -23,10 +33,12 @@ const Page = () => {
       password,
     });
 
-    if (res.ok) {
+    if (!res.error) {
+      toast.success('Login Successful - Welcome to BlogHive');
       router.push('/');
     } else {
-      alert('Invalid credentials');
+      setLoading(false);
+      toast.error('Invalid Credentials');
     }
   };
 
@@ -40,15 +52,15 @@ const Page = () => {
           <h2>Sign In</h2>
 
           <div className={styles.socialAuth}>
-            <button className="btn" onClick={() => signIn('google')}>
-              Sign up with Google
+            <button className="btn_google btn" onClick={() => signIn('google')}>
+              <FaGoogle /> Sign up with Google
             </button>
-            <button
+            {/* <button
               className="btn btn_white"
               onClick={() => signIn('facebook')}
             >
               Sign up with Facebook
-            </button>
+            </button> */}
           </div>
 
           <p>Or sign in using your email address</p>
@@ -56,15 +68,25 @@ const Page = () => {
           <form onSubmit={handleLogin}>
             <div className={styles.formControl}>
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" />
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className={styles.formControl}>
               <label htmlFor="password">Password</label>
-              <input type="password" name="password" />
+              <input
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
 
-            <button type="submit" className="btn">
-              Sign in
+            <button type="submit" className="btn" disabled={loading}>
+              {loading ? 'Signing in...' : 'Sign in'}
             </button>
           </form>
           <Link href="/auth/register" className={styles.login}>
