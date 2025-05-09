@@ -12,6 +12,19 @@
     margin: 2rem 0;
     border-bottom: 2px solid $text;
 
+    @include xs {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 0;
+      margin: 0;
+    }
+    @include sm {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem 0;
+      margin: 0;
+    }
+
     h1 {
       background-color: $bg-alt;
     }
@@ -31,6 +44,13 @@
     border-bottom: 2px solid $text;
     margin: 2rem 0;
     padding: 2rem 0;
+
+    @include xs {
+      grid-template-columns: 1fr;
+    }
+    @include sm {
+      grid-template-columns: 1fr;
+    }
   }
 
   .allBlogs {
@@ -41,6 +61,13 @@
     grid-gap: 3rem;
     margin: 2rem 0;
     padding: 2rem 0;
+
+    @include xs {
+      grid-template-columns: 1fr;
+    }
+    @include sm {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
