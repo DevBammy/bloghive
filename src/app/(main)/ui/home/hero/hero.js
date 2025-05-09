@@ -4,7 +4,7 @@ const Hero = () => {
   return (
     <section className={styles.hero}>
       <div className={styles.text}>
-        <h3>Featured</h3>
+        <h3>Featured*</h3>
         <h1>This is our very first blog post</h1>
         <p>
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Totam, nemo

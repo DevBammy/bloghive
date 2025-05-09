@@ -15,10 +15,26 @@
   justify-content: flex-start;
   padding: 3rem;
 
+  @include xs {
+    height: 70vh;
+    padding: 1rem;
+  }
+  @include sm {
+    height: 70vh;
+    padding: 1rem;
+  }
+
   h3,
   h1,
   p {
     color: $card;
     width: 70%;
+
+    @include xs {
+      width: 100%;
+    }
+    @include sm {
+      width: 100%;
+    }
   }
 }
