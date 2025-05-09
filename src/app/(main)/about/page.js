@@ -30,34 +30,34 @@ const BlogPage = () => {
       <h2>What We Offer</h2>
       <ol>
         <li>
-          Powerful Writing Tools - A seamless editor that lets your ideas flow
+          Powerful Writing Tools a seamless editor that lets your ideas flow
           without friction.
         </li>
         <li>
-          Community-Centric Experience - Follow your favorite writers, engage in
+          Community-Centric Experience follow your favorite writers, engage in
           meaningful discussions, and discover content that aligns with your
           passions.
         </li>
         <li>
-          Built for Growth - Whether you're blogging as a hobby or building a
+          Built for Growth whether you're blogging as a hobby or building a
           personal brand, BlogHive helps you grow your voice and visibility.
         </li>
         <li>
-          Secure & Scalable - With reliable hosting, fast performance, and
-          robust security, you focus on writing—we handle the rest.
+          Secure & Scalable with reliable hosting, fast performance, and robust
+          security, you focus on writing—we handle the rest.
         </li>
       </ol>
 
       <h2>Why "BlogHive"?</h2>
       <p>
-        Because we're a buzzing ecosystem of ideas. Like a hive, every
+        Because we are a buzzing ecosystem of ideas. Like a hive, every
         contributor adds value to the collective—creating a space that's always
         evolving, always alive.
       </p>
 
       <h2>For Writers. For Readers. For the Future.</h2>
       <p>
-        BlogHive isn't just another blogging tool—it's a movement. A platform
+        BlogHive isnt just another blogging tool—its a movement. A platform
         where the next generation of digital writers build legacies, spark
         conversations, and shape narratives that move the world forward. Welcome
         to the Hive. Let your voice be heard.
