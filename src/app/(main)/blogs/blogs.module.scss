@@ -12,12 +12,6 @@
     margin: 2rem 0;
     border-bottom: 2px solid $text;
 
-    @include xs {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 1rem 0;
-      margin: 0;
-    }
     @include sm {
       flex-direction: column;
       align-items: flex-start;
@@ -45,9 +39,6 @@
     margin: 2rem 0;
     padding: 2rem 0;
 
-    @include xs {
-      grid-template-columns: 1fr;
-    }
     @include sm {
       grid-template-columns: 1fr;
     }
@@ -62,9 +53,6 @@
     margin: 2rem 0;
     padding: 2rem 0;
 
-    @include xs {
-      grid-template-columns: 1fr;
-    }
     @include sm {
       grid-template-columns: 1fr;
     }
@@ -87,18 +75,11 @@
       grid-template-columns: 1fr;
       padding: 0;
     }
-    @include xs {
-      grid-template-columns: 1fr;
-      padding: 0;
-    }
 
     h1 {
       font-size: 3.5rem;
 
       @include sm {
-        font-size: 1.6rem;
-      }
-      @include xs {
         font-size: 1.6rem;
       }
     }
@@ -113,12 +94,6 @@
       align-items: flex-start;
       justify-content: space-between;
 
-      @include xs {
-        border-left: 0;
-        padding-left: 0;
-        flex-direction: row;
-        padding: 0;
-      }
       @include sm {
         border-left: 0;
         padding-left: 0;
@@ -143,9 +118,6 @@
     border-radius: 1rem;
     overflow: hidden;
 
-    @include xs {
-      height: 70vh;
-    }
     @include sm {
       height: 70vh;
     }
@@ -163,10 +135,6 @@
       grid-template-columns: 80% 20%;
       padding: 2rem 0;
 
-      @include xs {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-      }
       @include sm {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -176,10 +144,6 @@
         &:first-child {
           padding-right: 2rem;
 
-          @include xs {
-            padding: 0;
-            text-align: justify;
-          }
           @include sm {
             padding: 0;
             text-align: justify;
@@ -195,9 +159,6 @@
           align-items: flex-start;
           justify-content: flex-start;
 
-          @include xs {
-            border-left: 0;
-          }
           @include sm {
             border-left: 0;
           }
@@ -255,9 +216,6 @@
     align-items: flex-start;
     justify-content: center;
 
-    @include xs {
-      grid-template-columns: 1fr;
-    }
     @include sm {
       grid-template-columns: 1fr;
     }

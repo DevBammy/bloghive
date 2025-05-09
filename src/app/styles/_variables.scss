@@ -11,26 +11,44 @@ $card: #ffffff;
 $shadow: rgba(0, 0, 0, 0.16) 0px 1px 14px;
 $shadow-alt: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 
-@mixin xs {
-  @media (max-width: 369px) {
-    @content;
-  }
-}
+// @mixin xs {
+//   @media (max-width: 369px) {
+//     @content;
+//   }
+// }
+
+// @mixin sm {
+//   @media (min-width: 370px) and (max-width: 767px) {
+//     @content;
+//   }
+// }
+
+// @mixin md {
+//   @media (min-width: 768px) and (max-width: 1023px) {
+//     @content;
+//   }
+// }
+
+// @mixin lg {
+//   @media (min-width: 1024px) {
+//     @content;
+//   }
+// }
 
 @mixin sm {
-  @media (min-width: 370px) and (max-width: 767px) {
+  @media (max-width: 738px) {
     @content;
   }
 }
 
 @mixin md {
-  @media (min-width: 768px) and (max-width: 1023px) {
+  @media (max-width: 1024px) {
     @content;
   }
 }
 
 @mixin lg {
-  @media (min-width: 1024px) {
+  @media (max-width: 1366px) {
     @content;
   }
 }

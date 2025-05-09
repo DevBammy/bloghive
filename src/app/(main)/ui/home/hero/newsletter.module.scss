@@ -8,9 +8,6 @@
   margin: 2rem auto;
   padding: 2rem 0;
 
-  @include xs {
-    height: max-content;
-  }
   @include sm {
     height: max-content;
   }

@@ -19,9 +19,6 @@
     @include sm {
       grid-template-columns: 1fr;
     }
-    @include xs {
-      grid-template-columns: 1fr;
-    }
   }
 
   button {

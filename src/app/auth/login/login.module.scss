@@ -16,9 +16,6 @@
     justify-content: center;
     padding: 0;
 
-    @include xs {
-      grid-template-columns: 1fr;
-    }
     @include sm {
       grid-template-columns: 1fr;
     }
@@ -33,9 +30,6 @@
         overflow: hidden;
         box-shadow: $shadow;
 
-        @include xs {
-          display: none;
-        }
         @include sm {
           display: none;
         }
