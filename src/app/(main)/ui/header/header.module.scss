@@ -146,5 +146,9 @@
     font-size: 1.6rem;
     cursor: pointer;
     color: $blue;
+
+    @include lg {
+      display: none;
+    }
   }
 }

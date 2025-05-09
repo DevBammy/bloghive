@@ -1,7 +1,7 @@
 'use client';
 
-import { signIn } from 'next-auth/react';
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image';
 import LoginImage from '../../../../public/blog21.jpg';
 import { HiMiniArrowLongUp } from 'react-icons/hi2';

@@ -67,11 +67,6 @@ const Page = () => {
         <div className={styles.col}>
           <h2>Create Account</h2>
 
-          <div className={styles.socialAuth}>
-            <button className="btn">Sign up with Google</button>
-            <button className="btn btn_white">Sign up with Facebook</button>
-          </div>
-
           <p>Or sign up using your email address</p>
 
           <form onSubmit={handleSubmit}>
