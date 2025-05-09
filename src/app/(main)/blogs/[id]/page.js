@@ -35,7 +35,7 @@ const BlogDetailsPage = () => {
       </div>
 
       <div className={styles.blogImage}>
-        <Image src={blogImage} />
+        <Image src={blogImage} alt="blog post image" />
       </div>
 
       <div className={styles.blogBody}>

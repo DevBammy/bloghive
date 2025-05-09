@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import blogImage from '../../../../../public/blog1.jpg'
 import styles from './card.module.scss';
 
 const Card = () => (
   <div className={styles.card}>
     <Link href="/blogs/1" className={styles.card__image}>
-      <img src="/blog1.jpg" alt="Blog Post" width={50} height={50} />
+      <<Image src={blogImage} alt="Blog Post" width={50} height={50} />
     </Link>
     <div className={styles.card__content}>
       <h3>Blog Title</h3>
