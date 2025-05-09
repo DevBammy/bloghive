@@ -1,0 +1,45 @@
+@use '../../styles/variables' as *;
+
+.blogPage {
+  width: 100%;
+  height: max-content;
+
+  .title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+    border-bottom: 2px solid $text;
+
+    h1 {
+      background-color: $bg-alt;
+    }
+
+    p {
+      font-weight: 600;
+      font-size: 1.5rem;
+    }
+  }
+
+  .featuredBlogs {
+    width: 100%;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 3rem;
+    border-bottom: 2px solid $text;
+    margin: 2rem 0;
+    padding: 2rem 0;
+  }
+
+  .allBlogs {
+    width: 100%;
+    height: max-content;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3rem;
+    margin: 2rem 0;
+    padding: 2rem 0;
+  }
+}

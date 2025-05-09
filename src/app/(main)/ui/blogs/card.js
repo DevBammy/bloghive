@@ -4,7 +4,7 @@ import styles from './card.module.scss';
 
 const Card = () => (
   <div className={styles.card}>
-    <Link href="" className={styles.card__image}>
+    <Link href="null" className={styles.card__image}>
       <img src="/blog1.jpg" alt="Blog Post" width={50} height={50} />
     </Link>
     <div className={styles.card__content}>
@@ -15,9 +15,9 @@ const Card = () => (
         corrupti cupiditate numquam.
       </p>
 
-      <div href="" className={styles.cardBottom}>
-        <div href="" className={styles.card__info}>
-          <Link href="" className={styles.card__author}>
+      <div className={styles.cardBottom}>
+        <div className={styles.card__info}>
+          <Link href="null" className={styles.card__author}>
             <Image
               src={'/avatar3.jpg'}
               alt="Blog Post"
