@@ -12,7 +12,7 @@ const BlogPage = () => {
         </p>
       </div>
 
-      <>
+      {/* <>
         <p>
           At BlogHive, we believe in the power of voices—diverse, authentic, and
           unapologetically real. We are a dynamic blogging platform built to
@@ -65,7 +65,7 @@ const BlogPage = () => {
           conversations, and shape narratives that move the world forward.
           Welcome to the Hive. Let your voice be heard.
         </p>
-      </>
+      </> */}
 
       <Newsletter />
     </section>
