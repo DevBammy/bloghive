@@ -1,0 +1,109 @@
+@use '../../styles/variables' as *;
+
+.profile {
+  position: relative;
+  width: 100%;
+  height: max-content;
+  min-height: 100vh;
+
+  @include sm {
+    min-height: max-content;
+    margin: 2rem 0;
+  }
+
+  .title {
+    width: 100%;
+    height: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2rem 0;
+
+    @include sm {
+      margin: 0;
+    }
+  }
+
+  .profileRow {
+    position: relative;
+    width: 100%;
+    height: max-content;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 20% 80%;
+    align-items: flex-start;
+    justify-content: center;
+    grid-gap: 2rem;
+
+    @include sm {
+      grid-template-columns: 1fr;
+      min-height: max-content;
+    }
+
+    .profileControl {
+      position: sticky;
+      top: 5vh;
+      height: max-content;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 1rem;
+
+      @include sm {
+        flex-direction: row;
+        position: relative;
+      }
+
+      button {
+        width: 100%;
+        height: max-content;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 1rem;
+        padding: 2rem;
+        cursor: pointer;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 0.5rem;
+
+        @include sm {
+          padding: 1rem;
+          align-items: center;
+          justify-content: center;
+          span {
+            display: none;
+          }
+        }
+
+        &:hover {
+          background-color: $text;
+          color: $card;
+
+          span {
+            color: $card;
+          }
+        }
+
+        &.active {
+          background-color: $text;
+          color: $card;
+          span {
+            color: $card;
+          }
+        }
+      }
+    }
+
+    .profileDisplay {
+      width: 100%;
+      height: max-content;
+
+      @include sm {
+        margin-top: 2rem;
+      }
+    }
+  }
+}

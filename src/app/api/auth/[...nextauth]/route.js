@@ -1,5 +1,4 @@
 import GoogleProvider from 'next-auth/providers/google';
-import FacebookProvider from 'next-auth/providers/facebook';
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { connectToDB } from '@/lib/mongodb';
@@ -33,15 +32,14 @@ const handler = NextAuth({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
-    FacebookProvider({
-      clientId: process.env.FACEBOOK_CLIENT_ID,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    }),
   ],
   callbacks: {
     async session({ session, token }) {
       session.user.id = token.sub;
       return session;
+    },
+    async redirect({ url, baseUrl }) {
+      return baseUrl; // redirect to homepage
     },
   },
   pages: {

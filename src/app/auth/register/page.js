@@ -1,11 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import RegisterImage from '../../../../public/blog20.jpg';
 import { HiMiniArrowLongUp } from 'react-icons/hi2';
+import { FaGoogle } from 'react-icons/fa6';
 import { toast } from 'react-toastify';
 import styles from './register.module.scss';
 
@@ -66,6 +68,12 @@ const Page = () => {
         </div>
         <div className={styles.col}>
           <h2>Create Account</h2>
+
+          <div className={styles.socialAuth}>
+            <button className="btn_google btn" onClick={() => signIn('google')}>
+              <FaGoogle /> Sign up with Google
+            </button>
+          </div>
 
           <p>Or sign up using your email address</p>
 

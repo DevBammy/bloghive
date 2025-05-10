@@ -55,12 +55,6 @@ const Page = () => {
             <button className="btn_google btn" onClick={() => signIn('google')}>
               <FaGoogle /> Sign up with Google
             </button>
-            {/* <button
-              className="btn btn_white"
-              onClick={() => signIn('facebook')}
-            >
-              Sign up with Facebook
-            </button> */}
           </div>
 
           <p>Or sign in using your email address</p>

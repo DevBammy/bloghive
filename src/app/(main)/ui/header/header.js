@@ -12,7 +12,6 @@ const Header = () => {
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
 
-  console.log(session);
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.header__logo}>
@@ -44,7 +43,12 @@ const Header = () => {
         </nav>
 
         {session?.user ? (
-          <span>Hi, {session.user.name}</span>
+          <Link
+            href={session?.user ? '/user-profile' : '/auth/login'}
+            onClick={() => setShowNav((prev) => !prev)}
+          >
+            Hi, {session.user.name}
+          </Link>
         ) : (
           <nav className={styles.header__nav__right}>
             <Link
