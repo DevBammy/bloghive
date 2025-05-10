@@ -6,10 +6,6 @@ const BlogPage = () => {
     <section className={styles.aboutPage}>
       <div className={styles.title}>
         <h1>About BlogHive</h1>
-        <p>
-          Discover insights, inspiration, and expert advice on our engaging
-          blog.
-        </p>
       </div>
 
       <Newsletter />
