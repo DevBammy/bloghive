@@ -93,6 +93,10 @@ const Page = () => {
             Not yet a user, register
             <HiMiniArrowLongUp />
           </Link>
+          <Link href="/" className={styles.goHome}>
+            Return home
+            <HiMiniArrowLongUp />
+          </Link>
         </div>
       </div>
     </div>

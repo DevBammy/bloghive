@@ -110,6 +110,10 @@ const Page = () => {
           <Link href="/auth/login" className={styles.login}>
             Already a user, sign in <HiMiniArrowLongUp />
           </Link>
+          <Link href="/" className={styles.goHome}>
+            Return home
+            <HiMiniArrowLongUp />
+          </Link>
         </div>
       </div>
     </div>

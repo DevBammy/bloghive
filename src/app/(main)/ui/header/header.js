@@ -32,17 +32,32 @@ const Header = () => {
         }
       >
         <nav className={styles.header__nav__left}>
-          <Link href="/">Home</Link>
-          <Link href="/blogs">Blogs</Link>
-          <Link href="/about">About Us</Link>
+          <Link href="/" onClick={() => setShowNav((prev) => !prev)}>
+            Home
+          </Link>
+          <Link href="/blogs" onClick={() => setShowNav((prev) => !prev)}>
+            Blogs
+          </Link>
+          <Link href="/about" onClick={() => setShowNav((prev) => !prev)}>
+            About Us
+          </Link>
         </nav>
 
         {session?.user ? (
           <span>Hi, {session.user.name}</span>
         ) : (
           <nav className={styles.header__nav__right}>
-            <Link href="/auth/register">Sign Up</Link>
-            <Link href="/auth/login" className="btn">
+            <Link
+              href="/auth/register"
+              onClick={() => setShowNav((prev) => !prev)}
+            >
+              Sign Up
+            </Link>
+            <Link
+              href="/auth/login"
+              className="btn"
+              onClick={() => setShowNav((prev) => !prev)}
+            >
               Login
             </Link>
           </nav>
