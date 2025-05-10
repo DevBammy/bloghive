@@ -36,13 +36,13 @@ $shadow-alt: rgba(0, 0, 0, 0.16) 0px 1px 2px;
 // }
 
 @mixin sm {
-  @media (max-width: 738px) {
+  @media (min-width: 280px) and (max-width: 738px) {
     @content;
   }
 }
 
 @mixin md {
-  @media (max-width: 1024px) {
+  @media (min-width: 739px) and (max-width: 1024px) {
     @content;
   }
 }
