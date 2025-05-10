@@ -9,6 +9,7 @@ import PasswordManager from '../ui/profile/passwordManager';
 import LogOut from '../ui/profile/logout';
 import { useState } from 'react';
 import styles from './profile.module.scss';
+import Link from 'next/link';
 
 const ProfilePage = () => {
   const { data: session } = useSession();
@@ -31,7 +32,13 @@ const ProfilePage = () => {
           </h4>
         </div>
 
-        {view === 'posts' ? <button className="btn">Add New Post</button> : ''}
+        {view === 'posts' ? (
+          <Link href="/create-post" className="btn">
+            Add New Post
+          </Link>
+        ) : (
+          ''
+        )}
       </div>
 
       <div className={styles.profileRow}>

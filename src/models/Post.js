@@ -4,6 +4,7 @@ const PostSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     content: { type: String }, // Rich text (HTML or Quill JSON)
+    preview: { type: String },
     image: { type: String }, // URL from Supabase
     tags: [String],
     category: { type: String },
