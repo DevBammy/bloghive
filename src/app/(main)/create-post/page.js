@@ -1,10 +1,11 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import 'react-quill-new/dist/quill.snow.css';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
-import styles from './create.module.scss';
 import Image from 'next/image';
+import styles from './create.module.scss';
 
 const CreatePostPage = () => {
   const [title, setTitle] = useState('');
