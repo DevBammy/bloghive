@@ -7,13 +7,49 @@ import PersonalInfo from '../ui/profile/personalInfo';
 import UserPosts from '../ui/profile/posts';
 import PasswordManager from '../ui/profile/passwordManager';
 import LogOut from '../ui/profile/logout';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import Link from 'next/link';
 
 const ProfilePage = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [view, setView] = useState('personal');
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (status !== 'authenticated') return;
+
+    async function fetchMyPosts() {
+      const res = await fetch('/api/posts/me', { credentials: 'include' });
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      setPosts(data);
+    }
+
+    fetchMyPosts();
+  }, [status]);
+
+  const handleEdit = (postId) => {
+    // Redirect to the edit page
+    router.push(`/posts/edit/${postId}`);
+  };
+
+  const handleDelete = async (postId) => {
+    const confirmDelete = confirm('Are you sure you want to delete this post?');
+    if (confirmDelete) {
+      const res = await fetch(`/api/posts/id/${postId}`, {
+        method: 'DELETE',
+      });
+
+      if (res.ok) {
+        alert('Post deleted!');
+        // Refresh posts after deletion
+        setPosts(posts.filter((post) => post._id !== postId));
+      } else {
+        alert('Failed to delete the post');
+      }
+    }
+  };
 
   return (
     <section className={styles.profile}>

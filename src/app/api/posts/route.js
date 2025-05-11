@@ -37,3 +37,18 @@ export async function POST(req) {
     return new Response('Server error', { status: 500 });
   }
 }
+
+export async function GET() {
+  try {
+    await connectToDB();
+
+    const posts = await Post.find()
+      .populate('author', 'name image')
+      .sort({ createdAt: -1 });
+
+    return Response.json(posts);
+  } catch (err) {
+    console.error(err);
+    return new Response('Server error', { status: 500 });
+  }
+}
