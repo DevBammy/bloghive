@@ -4,6 +4,7 @@ import { useState } from 'react';
 import 'react-quill-new/dist/quill.snow.css';
 import ReactQuill from 'react-quill-new';
 import styles from './create.module.scss';
+import Image from 'next/image';
 
 const CreatePostPage = () => {
   const [title, setTitle] = useState('');
@@ -143,7 +144,7 @@ const CreatePostPage = () => {
             <input type="file" accept="image/*" onChange={handleImageChange} />
           </div>
           {preview && (
-            <img src={preview} alt="preview" style={{ maxWidth: 200 }} />
+            <Image src={preview} alt="preview" style={{ maxWidth: 200 }} />
           )}
         </div>
         <button type="submit" className="btn">
