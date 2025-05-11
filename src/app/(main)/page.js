@@ -38,8 +38,8 @@ export default function Home() {
         <Empty />
       ) : (
         <>
-          <Hero />
-          <Blogs />
+          <Hero post={posts} />
+          <Blogs post={posts} />
         </>
       )}
 

@@ -1,15 +1,12 @@
 @use '../../../../styles/variables.scss' as *;
 
 .hero {
+  position: relative;
   width: 100%;
   height: 85vh;
   margin: 1rem auto;
   border-radius: 1rem;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
-    url(/blog1.jpg);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  overflow: hidden;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
@@ -20,14 +17,37 @@
     padding: 1rem;
   }
 
-  h3,
-  h1,
-  p {
-    color: $card;
-    width: 70%;
+  .text {
+    z-index: 1;
+    h3,
+    h1,
+    p {
+      color: $card;
+      width: 70%;
 
-    @include sm {
-      width: 100%;
+      @include sm {
+        width: 100%;
+      }
     }
+  }
+
+  .heroWrapper {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)),
+    // background-color: red;
+    //   url(/blog1.jpg);
+    // background-size: cover;
+    // background-position: center;
+    // background-repeat: no-repeat;
   }
 }
