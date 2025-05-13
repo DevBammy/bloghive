@@ -1,16 +1,16 @@
+'use client';
+
 import Card from '../../blogs/card';
 import styles from './blogs.module.scss';
 
-const Blogs = () => {
+const Blogs = ({ post }) => {
   return (
     <section className={styles.blogs}>
       <h2>Latest Blogs</h2>
       <div className={styles.latest__blogs}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        {post.map((post) => (
+          <Card post={post} key={post._id} />
+        ))}
       </div>
 
       <button className="btn">Load More</button>

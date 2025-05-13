@@ -1,12 +1,14 @@
-// import React from 'react';
+// 'use client';
 
-// async function getAuthorPosts(id) {
-//   const res = await fetch(
-//     `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/author/${id}`,
-//     {
-//       cache: 'no-store',
-//     }
-//   );
+// import React from 'react';
+// import { useParams } from 'next/navigation';
+
+// async function getAuthorPosts() {
+//   const { id } = useParams();
+
+//   const res = await fetch(`/api/posts/author/${id}`, {
+//     cache: 'no-store',
+//   });
 //   return res.json();
 // }
 
@@ -27,12 +29,3 @@
 //     </div>
 //   );
 // }
-
-{
-  /* <Link
-  href={`/author/${post.author._id}`}
-  className="text-blue-500 hover:underline"
->
-  {post.author.name}
-</Link>; */
-}

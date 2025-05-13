@@ -1,4 +1,4 @@
-// import Comment from '@/models/Comment';
+import Comment from '@/models/Comment';
 
 import { connectToDB } from '@/lib/mongodb';
 import Post from '@/models/Post';
@@ -7,10 +7,8 @@ import { authOptions } from '@/lib/auth';
 
 export async function POST(req, { params }) {
   try {
-    // const session = await getServerSession(authOptions);
-    // if (!session) return new Response('Unauthorized', { status: 401 });
-
-    const session = { user: { id: '681e16fbc818363319cc0f32' } }; // temp
+    const session = await getServerSession(authOptions);
+    if (!session) return new Response('Unauthorized', { status: 401 });
 
     const { content } = await req.json();
     if (!content)
@@ -37,14 +35,14 @@ export async function POST(req, { params }) {
   }
 }
 
-// export async function GET(_, { params }) {
-//   await connectToDB();
-//   const comments = await Comment.find({ postId: params.id }).populate(
-//     'userId',
-//     'name email'
-//   );
+export async function GET(_, { params }) {
+  await connectToDB();
+  const comments = await Comment.find({ postId: params.id }).populate(
+    'userId',
+    'name email'
+  );
 
-//   if (!comments) return new Response('No comments found', { status: 404 });
+  if (!comments) return new Response('No comments found', { status: 404 });
 
-//   return Response.json(comments);
-// }
+  return Response.json(comments);
+}

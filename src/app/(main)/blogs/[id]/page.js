@@ -16,31 +16,52 @@ import styles from '../blogs.module.scss';
 
 const BlogDetailsPage = () => {
   const { data: session, status } = useSession();
-  const params = useParams();
-  const postId = params.id;
+  const { id } = useParams();
   const [post, setPost] = useState(null);
+  const [relatedPosts, setRelatedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchPostById = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/posts/id/${postId}`, {
+      const res = await fetch(`/api/posts/${id}`, {
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setPost(data);
-      setLoading(false);
+
+      // fetch related posts after setting the post
+      if (data.category) {
+        fetchRelatedPosts(data.category);
+      }
     } catch (error) {
+      setLoading(false);
       console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchRelatedPosts = async (category) => {
+    try {
+      const res = await fetch(`/api/posts?category=${category}`, {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch related posts');
+      const data = await res.json();
+
+      // Exclude current post from related list
+      const filtered = data.filter((p) => p._id !== id);
+      setRelatedPosts(filtered);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   useEffect(() => {
     fetchPostById();
-  }, []);
-
-  console.log(post);
+  }, [id]);
 
   return (
     <>
@@ -64,14 +85,14 @@ const BlogDetailsPage = () => {
               </div>
               <div className={styles.metadata}>
                 <span>READING TIME</span>
-                <p>20 MINS</p>
+                <p>{post.time || '3 MINS'}</p>
               </div>
             </div>
           </div>
 
           <div className={styles.blogImage}>
             <Image
-              src={post.image}
+              src={post.image || ''}
               style={{ objectFit: 'cover' }}
               quality={100}
               alt="blog post image"
@@ -90,7 +111,10 @@ const BlogDetailsPage = () => {
                 <h3>AUTHOR</h3>
 
                 <Link href="null" className={styles.authorImage}>
-                  <Image src={authorImage} alt="author images" />
+                  <Image
+                    src={post.author.avatar || authorImage}
+                    alt="author images"
+                  />
                 </Link>
                 <h2>{post.author.name}</h2>
                 <p>{post.author.desc || 'Best author 2025'}</p>
@@ -120,9 +144,13 @@ const BlogDetailsPage = () => {
           </div>
 
           <div className={styles.relatedNews}>
-            <Card />
-            <Card />
-            <Card />
+            {relatedPosts.length > 0 ? (
+              relatedPosts.map((relatedPost) => (
+                <Card key={relatedPost._id} post={relatedPost} />
+              ))
+            ) : (
+              <p>No related posts found.</p>
+            )}
           </div>
 
           <Newsletter />

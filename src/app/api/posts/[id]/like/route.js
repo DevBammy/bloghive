@@ -5,10 +5,8 @@ import { authOptions } from '@/lib/auth';
 
 export async function PATCH(req, { params }) {
   try {
-    // const session = await getServerSession(authOptions);
-    // if (!session) return new Response('Unauthorized', { status: 401 });
-
-    const session = { user: { id: '681e16fbc818363319cc0f32' } }; // temp
+    const session = await getServerSession(authOptions);
+    if (!session) return new Response('Unauthorized', { status: 401 });
 
     await connectToDB();
 

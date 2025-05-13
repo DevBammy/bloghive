@@ -28,8 +28,6 @@ export default function Home() {
     fetchAllPosts();
   }, []);
 
-  console.log(posts);
-
   return (
     <section>
       {loading ? (

@@ -1,16 +1,17 @@
+import { authOptions } from '@/lib/auth';
 import { connectToDB } from '@/lib/mongodb';
 import Post from '@/models/Post';
 import User from '@/models/User';
-// import { getServerSession } from 'next-auth';
-// import { authOptions } from '../../auth/[...nextauth]/route';
+import { getServerSession } from 'next-auth';
 
 export async function GET(req, context) {
   try {
-    const { params } = await context;
+    const { params } = context; // context must be awaited synchronously
+    const postId = params.id;
 
     await connectToDB();
 
-    const post = await Post.findById(params.id)
+    const post = await Post.findById(postId)
       .populate('author', 'name image')
       .populate('comments.user', 'name image');
 
@@ -26,10 +27,8 @@ export async function GET(req, context) {
 }
 
 export async function PATCH(req, { params }) {
-  // const session = await getServerSession(authOptions);
-  // if (!session) return new Response('Unauthorized', { status: 401 });
-
-  const session = { user: { id: '681e16fbc818363319cc0f32' } };
+  const session = await getServerSession(authOptions);
+  if (!session) return new Response('Unauthorized', { status: 401 });
 
   const { title, content, image, tags, category } = await req.json();
 
@@ -53,10 +52,8 @@ export async function PATCH(req, { params }) {
 }
 
 export async function DELETE(_, { params }) {
-  // const session = await getServerSession(authOptions);
-  // if (!session) return new Response('Unauthorized', { status: 401 });
-
-  const session = { user: { id: '681e16fbc818363319cc0f32' } };
+  const session = await getServerSession(authOptions);
+  if (!session) return new Response('Unauthorized', { status: 401 });
 
   await connectToDB();
   const post = await Post.findById(params.id);

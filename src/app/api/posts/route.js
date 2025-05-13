@@ -5,12 +5,10 @@ import { getServerSession } from 'next-auth';
 
 export async function POST(req) {
   try {
-    // const session = await getServerSession(authOptions);
-    // if (!session) return new Response('Unauthorized', { status: 401 });
+    const session = await getServerSession(authOptions);
+    if (!session) return new Response('Unauthorized', { status: 401 });
 
-    const session = { user: { id: '681e16fbc818363319cc0f32' } }; // temp
-
-    const { title, content, image, category, tags } = await req.json();
+    const { title, content, image, category, tags, except } = await req.json();
     if (!title || !content) {
       return new Response('Title and content are required', { status: 400 });
     }
@@ -23,6 +21,7 @@ export async function POST(req) {
       image,
       category,
       tags,
+      except,
       author: session.user.id,
       likes: [],
       comments: [],
