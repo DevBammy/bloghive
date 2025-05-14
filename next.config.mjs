@@ -7,6 +7,10 @@ const nextConfig = {
         hostname: 'uqxxsxwbbckifxjxpevn.supabase.co',
         pathname: '/storage/v1/object/public/**', // Adjust if your path is different
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
     ],
   },
 };

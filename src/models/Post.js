@@ -7,6 +7,7 @@ const PostSchema = new mongoose.Schema(
     image: String,
     category: String,
     except: String,
+    time: String,
     tags: [String],
     author: {
       type: mongoose.Schema.Types.ObjectId,

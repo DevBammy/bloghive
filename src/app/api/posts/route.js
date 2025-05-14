@@ -22,6 +22,7 @@ export async function POST(req) {
       category,
       tags,
       except,
+      time,
       author: session.user.id,
       likes: [],
       comments: [],

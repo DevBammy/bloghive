@@ -6,7 +6,12 @@ const PersonalInfo = ({ user }) => {
   return (
     <div className={styles.profileCard}>
       <div className={styles.profileImage}>
-        <Image src={userImage} alt="user image" />
+        <Image
+          src={user?.image || userImage}
+          width={300}
+          height={300}
+          alt="user image"
+        />
       </div>
 
       <form>

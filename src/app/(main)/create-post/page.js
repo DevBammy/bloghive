@@ -28,9 +28,11 @@ const CreatePostPage = () => {
     image: null,
     preview: '',
     except: '',
+    time: '',
   });
 
-  const { title, content, category, tags, image, preview, except } = formData;
+  const { title, content, category, tags, image, preview, except, time } =
+    formData;
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -63,6 +65,7 @@ const CreatePostPage = () => {
       image: null,
       preview: '',
       except: '',
+      time: '',
     });
   };
 
@@ -94,6 +97,7 @@ const CreatePostPage = () => {
         image: imageUrl,
         author: session.user.id,
         except,
+        time,
       };
 
       const res = await fetch('/api/posts', {
@@ -203,6 +207,10 @@ const CreatePostPage = () => {
               onChange={handleChange}
               required
             />
+          </div>
+          <div className={styles.formControl}>
+            <label htmlFor="time">Reading Time</label>
+            <input type="text" name="time" onChange={handleChange} required />
           </div>
 
           {preview && (

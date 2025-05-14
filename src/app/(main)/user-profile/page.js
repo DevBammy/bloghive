@@ -13,59 +13,64 @@ import Link from 'next/link';
 
 const ProfilePage = () => {
   const { data: session, status } = useSession();
+
+  console.log(session);
+
   const [view, setView] = useState('personal');
   const [posts, setPosts] = useState([]);
+
+  async function fetchMyPosts() {
+    const res = await fetch('/api/posts/me', { credentials: 'include' });
+    if (!res.ok) throw new Error('Failed to fetch');
+    const data = await res.json();
+    setPosts(data);
+  }
 
   useEffect(() => {
     if (status !== 'authenticated') return;
 
-    async function fetchMyPosts() {
-      const res = await fetch('/api/posts/me', { credentials: 'include' });
-      if (!res.ok) throw new Error('Failed to fetch');
-      const data = await res.json();
-      setPosts(data);
-    }
-
     fetchMyPosts();
   }, [status]);
 
-  const handleEdit = (postId) => {
-    // Redirect to the edit page
-    router.push(`/posts/edit/${postId}`);
-  };
+  console.log(posts);
 
-  const handleDelete = async (postId) => {
-    const confirmDelete = confirm('Are you sure you want to delete this post?');
-    if (confirmDelete) {
-      const res = await fetch(`/api/posts/id/${postId}`, {
-        method: 'DELETE',
-      });
+  // const handleEdit = (postId) => {
+  //   // Redirect to the edit page
+  //   router.push(`/posts/edit/${postId}`);
+  // };
 
-      if (res.ok) {
-        alert('Post deleted!');
-        // Refresh posts after deletion
-        setPosts(posts.filter((post) => post._id !== postId));
-      } else {
-        alert('Failed to delete the post');
-      }
-    }
-  };
+  // const handleDelete = async (postId) => {
+  //   const confirmDelete = confirm('Are you sure you want to delete this post?');
+  //   if (confirmDelete) {
+  //     const res = await fetch(`/api/posts/id/${postId}`, {
+  //       method: 'DELETE',
+  //     });
 
-  const handleProfileUpdate = async () => {
-    const res = await fetch('/api/users/me', {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name,
-        image,
-        email,
-        password, // Only if user filled it
-      }),
-    });
+  //     if (res.ok) {
+  //       alert('Post deleted!');
+  //       // Refresh posts after deletion
+  //       setPosts(posts.filter((post) => post._id !== postId));
+  //     } else {
+  //       alert('Failed to delete the post');
+  //     }
+  //   }
+  // };
 
-    const updatedUser = await res.json();
-    console.log(updatedUser);
-  };
+  // const handleProfileUpdate = async () => {
+  //   const res = await fetch('/api/users/me', {
+  //     method: 'PATCH',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+  //       name,
+  //       image,
+  //       email,
+  //       password, // Only if user filled it
+  //     }),
+  //   });
+
+  //   const updatedUser = await res.json();
+  //   console.log(updatedUser);
+  // };
 
   return (
     <section className={styles.profile}>
@@ -130,7 +135,7 @@ const ProfilePage = () => {
           {view === 'personal' ? (
             <PersonalInfo user={session?.user} />
           ) : view === 'posts' ? (
-            <UserPosts />
+            <UserPosts post={posts} />
           ) : view === 'password' ? (
             <PasswordManager />
           ) : (

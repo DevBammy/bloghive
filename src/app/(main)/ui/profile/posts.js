@@ -2,12 +2,13 @@ import Card from '../blogs/card';
 import { useRouter } from 'next/navigation';
 import styles from './profile.module.scss';
 
-const UserPosts = () => (
-  <div className={styles.userPosts}>
-    <Card />
-    <Card />
-    <Card />
-    {/* 
+const UserPosts = ({ post }) => {
+  return (
+    <div className={styles.userPosts}>
+      {post?.map((post) => (
+        <Card post={post} key={post._id} />
+      ))}
+      {/* 
     <div>
       <h1>My Posts</h1>
       {posts.map((post) => (
@@ -19,7 +20,8 @@ const UserPosts = () => (
         </div>
       ))}
     </div> */}
-  </div>
-);
+    </div>
+  );
+};
 
 export default UserPosts;
