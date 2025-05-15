@@ -52,7 +52,10 @@ const Page = () => {
           <h2>Sign In</h2>
 
           <div className={styles.socialAuth}>
-            <button className="btn_google btn" onClick={() => signIn('google')}>
+            <button
+              className="btn_google btn"
+              onClick={() => signIn('google', { callbackUrl: '/' })}
+            >
               <FaGoogle /> Sign up with Google
             </button>
           </div>

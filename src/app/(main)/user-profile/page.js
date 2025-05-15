@@ -13,26 +13,28 @@ import Link from 'next/link';
 
 const ProfilePage = () => {
   const { data: session, status } = useSession();
-
-  console.log(session);
-
+  const [loading, setLoading] = useState(false);
   const [view, setView] = useState('personal');
   const [posts, setPosts] = useState([]);
-
-  async function fetchMyPosts() {
-    const res = await fetch('/api/posts/me', { credentials: 'include' });
-    if (!res.ok) throw new Error('Failed to fetch');
-    const data = await res.json();
-    setPosts(data);
-  }
 
   useEffect(() => {
     if (status !== 'authenticated') return;
 
+    async function fetchMyPosts() {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/posts/me');
+        const data = await res.json();
+        setPosts(data);
+        setLoading(false);
+      } catch (err) {
+        setLoading(false);
+        console.error('Error fetching posts:', err);
+      }
+    }
+
     fetchMyPosts();
   }, [status]);
-
-  console.log(posts);
 
   // const handleEdit = (postId) => {
   //   // Redirect to the edit page
@@ -109,19 +111,19 @@ const ProfilePage = () => {
 
           <button
             onClick={() => setView('posts')}
-            className={view === 'post' ? styles.active : ''}
+            className={view === 'posts' ? styles.active : ''}
           >
             <FaPenAlt />
             <span>My Posts</span>
           </button>
 
-          <button
+          {/* <button
             onClick={() => setView('password')}
             className={view === 'password' ? styles.active : ''}
           >
             <FaLock />
             <span>Password Manager</span>
-          </button>
+          </button> */}
           <button
             onClick={() => setView('logout')}
             className={view === 'logout' ? styles.active : ''}
@@ -135,9 +137,7 @@ const ProfilePage = () => {
           {view === 'personal' ? (
             <PersonalInfo user={session?.user} />
           ) : view === 'posts' ? (
-            <UserPosts post={posts} />
-          ) : view === 'password' ? (
-            <PasswordManager />
+            <UserPosts post={posts} loading={loading} />
           ) : (
             <LogOut setView={setView} />
           )}
@@ -148,3 +148,7 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+// view === 'password' ? (
+//   <PasswordManager />
+// ) :

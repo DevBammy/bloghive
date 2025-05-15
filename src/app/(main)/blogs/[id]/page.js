@@ -110,12 +110,12 @@ const BlogDetailsPage = () => {
               <div className={styles.col}>
                 <h3>AUTHOR</h3>
 
-                <Link href="null" className={styles.authorImage}>
+                <div className={styles.authorImage}>
                   <Image
                     src={post.author.avatar || authorImage}
                     alt="author images"
                   />
-                </Link>
+                </div>
                 <h2>{post.author.name}</h2>
                 <p>{post.author.desc || 'Best author 2025'}</p>
 

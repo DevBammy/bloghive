@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import Card from '../ui/blogs/card';
 import Newsletter from '../ui/home/hero/newsletter';
 import styles from './blogs.module.scss';
+import Loading from '../ui/elements/loading';
+import Empty from '../ui/elements/empty';
 
 const BlogPage = () => {
   const [loading, setLoading] = useState(true);
@@ -17,13 +19,13 @@ const BlogPage = () => {
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setPosts(data);
-
       const filtered = data.filter((p) => p._id !== id);
       setFilteredPost(filtered.slice(0, 2));
 
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -41,17 +43,25 @@ const BlogPage = () => {
         </p>
       </div>
 
-      <div className={styles.featuredBlogs}>
-        {filteredPost.map((post) => (
-          <Card post={post} key={post._id} />
-        ))}
-      </div>
+      {loading ? (
+        <Loading />
+      ) : posts?.length === 0 ? (
+        <Empty />
+      ) : (
+        <>
+          <div className={styles.featuredBlogs}>
+            {filteredPost.map((post) => (
+              <Card post={post} key={post._id} />
+            ))}
+          </div>
 
-      <div className={styles.allBlogs}>
-        {posts?.map((post) => (
-          <Card post={post} key={post._id} />
-        ))}
-      </div>
+          <div className={styles.allBlogs}>
+            {posts?.map((post) => (
+              <Card post={post} key={post._id} />
+            ))}
+          </div>
+        </>
+      )}
 
       <Newsletter />
     </section>

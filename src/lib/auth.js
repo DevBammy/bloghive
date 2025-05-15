@@ -2,7 +2,7 @@ import GoogleProvider from 'next-auth/providers/google';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import User from '@/models/User';
 import { connectToDB } from './mongodb';
-import { compare } from 'bcryptjs';
+import bcrypt from 'bcryptjs'; // make sure to import bcrypt properly
 
 export const authOptions = {
   providers: [
@@ -33,15 +33,37 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
-      session.user.id = token.id;
-      return session;
-    },
-    async jwt({ token, user }) {
-      if (user) {
-        token.id = user._id;
+    async jwt({ token, user, account }) {
+      // Handle Google login
+      if (account?.provider === 'google') {
+        await connectToDB();
+        let existingUser = await User.findOne({ email: token.email });
+
+        if (!existingUser) {
+          existingUser = await User.create({
+            email: token.email,
+            name: token.name,
+            image: token.picture, // optional: save profile image
+            password: '', // if required by schema, leave empty or set default
+          });
+        }
+
+        token.id = existingUser._id;
       }
+
+      // Handle credentials login
+      if (user && !token.id) {
+        token.id = user.id || user._id; // fallback for both formats
+      }
+
       return token;
+    },
+
+    async session({ session, token }) {
+      if (token?.id) {
+        session.user.id = token.id;
+      }
+      return session;
     },
   },
   pages: {

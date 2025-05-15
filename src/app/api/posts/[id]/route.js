@@ -6,8 +6,8 @@ import { getServerSession } from 'next-auth';
 
 export async function GET(req, context) {
   try {
-    const { params } = context; // context must be awaited synchronously
-    const postId = params.id;
+    const { params } = await context; // context must be awaited synchronously
+    const postId = await params.id;
 
     await connectToDB();
 

@@ -1,13 +1,18 @@
 import Card from '../blogs/card';
-import { useRouter } from 'next/navigation';
 import styles from './profile.module.scss';
+import Empty from '../elements/empty';
+import Loading from '../elements/loading';
 
-const UserPosts = ({ post }) => {
+const UserPosts = ({ post, loading }) => {
   return (
     <div className={styles.userPosts}>
-      {post?.map((post) => (
-        <Card post={post} key={post._id} />
-      ))}
+      {loading ? (
+        <Loading />
+      ) : post.length === 0 ? (
+        <Empty />
+      ) : (
+        post?.map((post) => <Card post={post} key={post._id} />)
+      )}
       {/* 
     <div>
       <h1>My Posts</h1>
