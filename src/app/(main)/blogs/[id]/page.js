@@ -15,7 +15,6 @@ import { formatDate } from '@/lib/formatDate';
 import styles from '../blogs.module.scss';
 
 const BlogDetailsPage = () => {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const { data: session, status } = useSession();
   const { id } = useParams();
   const [post, setPost] = useState(null);
@@ -23,10 +22,9 @@ const BlogDetailsPage = () => {
   const [loading, setLoading] = useState(true);
 
   const fetchPostById = async () => {
-    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
     try {
       setLoading(true);
-      const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, {
+      const res = await fetch(`/api/posts/${id}`, {
         credentials: 'include',
       });
       if (!res.ok) throw new Error('Failed to fetch');
@@ -47,12 +45,9 @@ const BlogDetailsPage = () => {
 
   const fetchRelatedPosts = async (category) => {
     try {
-      const res = await fetch(
-        `${API_BASE_URL}/api/posts?category=${category}`,
-        {
-          credentials: 'include',
-        }
-      );
+      const res = await fetch(`/api/posts?category=${category}`, {
+        credentials: 'include',
+      });
       if (!res.ok) throw new Error('Failed to fetch related posts');
       const data = await res.json();
 

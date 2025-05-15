@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function EditPostPage({ params }) {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const [post, setPost] = useState({
     title: '',
     content: '',
@@ -17,7 +16,7 @@ export default function EditPostPage({ params }) {
 
   useEffect(() => {
     async function fetchPostData() {
-      const res = await fetch(`${API_BASE_URL}/api/posts/id/${params.id}`);
+      const res = await fetch(`/api/posts/id/${params.id}`);
       const data = await res.json();
       setPost(data);
     }
@@ -30,7 +29,7 @@ export default function EditPostPage({ params }) {
 
     setLoading(true);
 
-    const res = await fetch(`${API_BASE_URL}/api/posts/id/${params.id}`, {
+    const res = await fetch(`/api/posts/id/${params.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
         title: post.title,

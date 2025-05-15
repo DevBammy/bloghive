@@ -12,7 +12,6 @@ import styles from './profile.module.scss';
 import Link from 'next/link';
 
 const ProfilePage = () => {
-  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState('personal');
@@ -24,7 +23,7 @@ const ProfilePage = () => {
     async function fetchMyPosts() {
       try {
         setLoading(true);
-        const res = await fetch(`${API_BASE_URL}/api/posts/me`);
+        const res = await fetch('/api/posts/me');
         const data = await res.json();
         setPosts(data);
         setLoading(false);
