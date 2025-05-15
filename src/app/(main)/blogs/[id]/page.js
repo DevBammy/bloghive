@@ -21,29 +21,73 @@ const BlogDetailsPage = () => {
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchPostById = async () => {
-    try {
-      setLoading(true);
-      const res = await fetch(`/api/posts/${id}`, {
-        credentials: 'include',
-      });
-      if (!res.ok) throw new Error('Failed to fetch');
-      const data = await res.json();
-      setPost(data);
+  // const fetchPostById = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const res = await fetch(`/api/posts/${id}`, {
+  //       credentials: 'include',
+  //     });
+  //     if (!res.ok) throw new Error('Failed to fetch');
+  //     const data = await res.json();
+  //     setPost(data);
 
-      // fetch related posts after setting the post
-      if (data.category) {
-        fetchRelatedPosts(data.category);
+  //     // fetch related posts after setting the post
+  //     if (data.category) {
+  //       fetchRelatedPosts(data.category);
+  //     }
+  //   } catch (error) {
+  //     setLoading(false);
+  //     console.log(error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  // const fetchRelatedPosts = async (category) => {
+  //   try {
+  //     const res = await fetch(`/api/posts?category=${category}`, {
+  //       credentials: 'include',
+  //     });
+  //     if (!res.ok) throw new Error('Failed to fetch related posts');
+  //     const data = await res.json();
+
+  //     // Exclude current post from related list
+  //     const filtered = data.filter((p) => p._id !== id);
+  //     setRelatedPosts(filtered);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchPostById();
+  // }, [id]);
+
+  useEffect(() => {
+    const fetchPostById = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`/api/posts/${id}`, {
+          credentials: 'include',
+        });
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        setPost(data);
+
+        if (data.category) {
+          fetchRelatedPosts(data.category, data._id);
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  const fetchRelatedPosts = async (category) => {
+    fetchPostById();
+  }, [id]);
+
+  const fetchRelatedPosts = async (category, currentPostId) => {
     try {
       const res = await fetch(`/api/posts?category=${category}`, {
         credentials: 'include',
@@ -51,17 +95,14 @@ const BlogDetailsPage = () => {
       if (!res.ok) throw new Error('Failed to fetch related posts');
       const data = await res.json();
 
-      // Exclude current post from related list
-      const filtered = data.filter((p) => p._id !== id);
+      const filtered = data.filter(
+        (p) => String(p._id) !== String(currentPostId)
+      );
       setRelatedPosts(filtered);
     } catch (error) {
       console.error(error);
     }
   };
-
-  useEffect(() => {
-    fetchPostById();
-  }, [id]);
 
   return (
     <>
