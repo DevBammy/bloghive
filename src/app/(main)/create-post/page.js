@@ -14,11 +14,7 @@ const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 const CreatePostPage = () => {
   const { data: session, status } = useSession();
-  if (status === 'loading') return <p>Loading...</p>;
-  if (!session) return <p>You must be logged in to create a post</p>;
-
   const router = useRouter();
-
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -30,6 +26,9 @@ const CreatePostPage = () => {
     except: '',
     time: '',
   });
+
+  if (status === 'loading') return <p>Loading...</p>;
+  if (!session) return <p>You must be logged in to create a post</p>;
 
   const { title, content, category, tags, image, preview, except, time } =
     formData;
