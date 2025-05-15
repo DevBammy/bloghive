@@ -30,7 +30,7 @@ export default function EditPostPage({ params }) {
 
     setLoading(true);
 
-    const res = await fetch(`/api/posts/id/${params.id}`, {
+    const res = await fetch(`${API_BASE_URL}/api/posts/id/${params.id}`, {
       method: 'PATCH',
       body: JSON.stringify({
         title: post.title,
