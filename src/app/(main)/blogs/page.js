@@ -8,6 +8,7 @@ import Loading from '../ui/elements/loading';
 import Empty from '../ui/elements/empty';
 
 const BlogPage = () => {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [filteredPost, setFilteredPost] = useState([]);
@@ -15,7 +16,9 @@ const BlogPage = () => {
   const fetchAllPosts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/posts/', { credentials: 'include' });
+      const res = await fetch(`${API_BASE_URL}/api/posts/`, {
+        credentials: 'include',
+      });
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setPosts(data);

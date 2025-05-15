@@ -13,6 +13,7 @@ import styles from './create.module.scss';
 const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 
 const CreatePostPage = () => {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const { data: session, status } = useSession();
   if (status === 'loading') return <p>Loading...</p>;
   if (!session) return <p>You must be logged in to create a post</p>;
@@ -100,7 +101,7 @@ const CreatePostPage = () => {
         time,
       };
 
-      const res = await fetch('/api/posts', {
+      const res = await fetch(`${API_BASE_URL}/api/posts`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(post),

@@ -8,13 +8,16 @@ import Loading from './ui/elements/loading';
 import Empty from './ui/elements/empty';
 
 export default function Home() {
+  const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL;
   const [loading, setLoading] = useState(true);
   const [posts, setPosts] = useState([]);
 
   const fetchAllPosts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/posts/', { credentials: 'include' });
+      const res = await fetch(`${API_BASE_URL}/api/posts/`, {
+        credentials: 'include',
+      });
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setPosts(data);
