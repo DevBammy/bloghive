@@ -15,6 +15,7 @@ import Loading from '../../ui/elements/loading';
 import { formatDate } from '@/lib/formatDate';
 import Card from '../../ui/blogs/card';
 import styles from '../blogs.module.scss';
+import { toast } from 'react-toastify';
 
 const BlogDetailsPage = () => {
   const { data: session, status } = useSession();
@@ -49,13 +50,11 @@ const BlogDetailsPage = () => {
         fetchRelatedPosts(data.category, data._id);
       }
     } catch (error) {
-      console.log(error);
+      toast.error('Failed to fetch');
     } finally {
       setLoading(false);
     }
   };
-
-  console.log(post);
 
   // fetch related posts
   const fetchRelatedPosts = async (category, currentPostId) => {
@@ -71,7 +70,7 @@ const BlogDetailsPage = () => {
       );
       setRelatedPosts(filtered);
     } catch (error) {
-      console.error(error);
+      toast.error('Failed to fetch');
     }
   };
 
@@ -88,8 +87,9 @@ const BlogDetailsPage = () => {
       const data = await res.json();
       setLiked(data.liked);
       setLikesCount(data.likesCount);
+      toast.success('Likes toggled');
     } catch (err) {
-      console.error(err);
+      toast.error('Failed to toggle like');
     }
   };
 
@@ -103,11 +103,11 @@ const BlogDetailsPage = () => {
       });
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      console.log('Fetched comments:', data);
+
       setComment(data);
       setCommenting(false);
     } catch (error) {
-      console.log(error);
+      toast.error('Failed to fetch');
     } finally {
       setCommenting(false);
     }
@@ -135,8 +135,9 @@ const BlogDetailsPage = () => {
       setComment((prev) => [...prev, data.comment]);
       setNewComment('');
       setShowComment(false);
+      toast.success('Comment posted!');
     } catch (err) {
-      console.error(err);
+      toast.error('Failed to fetch');
       setCommenting(false);
     }
   };

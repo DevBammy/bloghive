@@ -6,6 +6,7 @@ import Hero from './ui/home/hero/hero';
 import Newsletter from './ui/home/hero/newsletter';
 import Loading from './ui/elements/loading';
 import Empty from './ui/elements/empty';
+import { toast } from 'react-toastify';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
@@ -20,7 +21,7 @@ export default function Home() {
       setPosts(data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      toast.error('Failed to fetch');
     }
   };
 

@@ -10,6 +10,7 @@ import LogOut from '../ui/profile/logout';
 import { useEffect, useState } from 'react';
 import styles from './profile.module.scss';
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
   const { data: session, status } = useSession();
@@ -29,7 +30,7 @@ const ProfilePage = () => {
         setLoading(false);
       } catch (err) {
         setLoading(false);
-        console.error('Error fetching posts:', err);
+        toast.error('Failed to fetch');
       }
     }
 

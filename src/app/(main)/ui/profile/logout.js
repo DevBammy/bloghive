@@ -1,10 +1,16 @@
 import { signOut, useSession } from 'next-auth/react';
 import styles from './profile.module.scss';
+import { toast } from 'react-toastify';
 
 const LogOut = ({ setView }) => {
   const { status } = useSession();
 
   if (status !== 'authenticated') return null;
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: '/' });
+    toast.success('signed out successfully');
+  };
 
   return (
     <div className={styles.LogOut}>
@@ -14,10 +20,7 @@ const LogOut = ({ setView }) => {
           <button className="btn" onClick={() => setView('personal')}>
             No
           </button>
-          <button
-            className="btn_white"
-            onClick={() => signOut({ callbackUrl: '/' })}
-          >
+          <button className="btn_white" onClick={handleSignOut}>
             Yes
           </button>
         </div>

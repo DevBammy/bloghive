@@ -8,7 +8,6 @@ export async function uploadImage(file) {
     .upload(filePath, file);
 
   if (error) {
-    console.error('Upload error:', error);
     return null;
   }
 
@@ -16,8 +15,6 @@ export async function uploadImage(file) {
   const { data: urlData } = supabase.storage
     .from('blogs')
     .getPublicUrl(filePath);
-
-  console.log('Supabase Public URL:', urlData.publicUrl);
 
   return urlData.publicUrl;
 }

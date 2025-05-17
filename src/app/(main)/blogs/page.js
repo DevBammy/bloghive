@@ -6,6 +6,7 @@ import Newsletter from '../ui/home/hero/newsletter';
 import styles from './blogs.module.scss';
 import Loading from '../ui/elements/loading';
 import Empty from '../ui/elements/empty';
+import { toast } from 'react-toastify';
 
 const BlogPage = () => {
   const [loading, setLoading] = useState(true);
@@ -24,7 +25,7 @@ const BlogPage = () => {
 
       setLoading(false);
     } catch (error) {
-      console.log(error);
+      toast.error('Failed to fetch');
       setLoading(false);
     }
   };
