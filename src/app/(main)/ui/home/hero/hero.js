@@ -7,7 +7,7 @@ const Hero = ({ post }) => {
       <Link href={`/blogs/${post[0]._id}`} className={styles.text}>
         <h3>Featured*</h3>
         <h1>{post[0].title}</h1>
-        <p>{post.except}</p>
+        <p>{post[0].except}</p>
       </Link>
 
       <div className={styles.heroWrapper}>

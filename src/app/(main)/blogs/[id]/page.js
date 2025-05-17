@@ -55,7 +55,7 @@ const BlogDetailsPage = () => {
     }
   };
 
-  console.log(comment);
+  console.log(post);
 
   // fetch related posts
   const fetchRelatedPosts = async (category, currentPostId) => {
@@ -264,8 +264,10 @@ const BlogDetailsPage = () => {
 
                 <div className={styles.authorImage}>
                   <Image
-                    src={post.author.avatar || authorImage}
+                    src={post.author.image || authorImage}
                     alt="author images"
+                    width={500}
+                    height={500}
                   />
                 </div>
                 <h2>{post.author.name}</h2>

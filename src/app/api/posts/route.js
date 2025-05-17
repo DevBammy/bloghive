@@ -8,7 +8,8 @@ export async function POST(req) {
     const session = await getServerSession(authOptions);
     if (!session) return new Response('Unauthorized', { status: 401 });
 
-    const { title, content, image, category, tags, except } = await req.json();
+    const { title, content, image, category, tags, except, time } =
+      await req.json();
     if (!title || !content) {
       return new Response('Title and content are required', { status: 400 });
     }

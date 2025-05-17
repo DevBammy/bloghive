@@ -15,8 +15,12 @@ const Card = ({ post }) => {
         <Image src={post.image} alt="Blog Post" width={1000} height={1000} />
       </Link>
       <div className={styles.card__content}>
-        <h3>{post.title}</h3>
-        <p>{post.except || post.title.toLowerCase()}</p>
+        <h3>{post.title.substring(0, 60)}...</h3>
+        <p>
+          {post.except
+            ? post.except.substring(0, 100)
+            : post.title.toLowerCase()}
+        </p>
 
         <div className={styles.cardBottom}>
           <div className={styles.card__info}>
