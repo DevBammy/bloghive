@@ -144,6 +144,23 @@
         &:first-child {
           padding-right: 2rem;
 
+          p {
+            background-color: transparent;
+          }
+
+          button {
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 1rem;
+
+            span {
+              color: $card;
+              font-weight: 400;
+            }
+          }
+
           @include sm {
             padding: 0;
             text-align: justify;

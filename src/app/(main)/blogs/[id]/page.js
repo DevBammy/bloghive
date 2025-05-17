@@ -1,7 +1,6 @@
 'use client';
 
 import Image from 'next/image';
-import blogImage from '../../../../../public/blog30.jpg';
 import authorImage from '../../../../../public/avatar3.jpg';
 import { FaXTwitter, FaFacebook, FaLinkedin } from 'react-icons/fa6';
 import Link from 'next/link';
@@ -12,6 +11,8 @@ import { useParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Loading from '../../ui/elements/loading';
 import { formatDate } from '@/lib/formatDate';
+import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
+import { AiOutlineComment } from 'react-icons/ai';
 import styles from '../blogs.module.scss';
 
 const BlogDetailsPage = () => {
@@ -20,72 +21,33 @@ const BlogDetailsPage = () => {
   const [post, setPost] = useState(null);
   const [relatedPosts, setRelatedPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [liked, setLiked] = useState(null);
+  const [likesCount, setLikesCount] = useState(null);
 
-  // const fetchPostById = async () => {
-  //   try {
-  //     setLoading(true);
-  //     const res = await fetch(`/api/posts/${id}`, {
-  //       credentials: 'include',
-  //     });
-  //     if (!res.ok) throw new Error('Failed to fetch');
-  //     const data = await res.json();
-  //     setPost(data);
+  const fetchPostById = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/posts/${id}`, {
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      setPost(data);
 
-  //     // fetch related posts after setting the post
-  //     if (data.category) {
-  //       fetchRelatedPosts(data.category);
-  //     }
-  //   } catch (error) {
-  //     setLoading(false);
-  //     console.log(error);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
-  // const fetchRelatedPosts = async (category) => {
-  //   try {
-  //     const res = await fetch(`/api/posts?category=${category}`, {
-  //       credentials: 'include',
-  //     });
-  //     if (!res.ok) throw new Error('Failed to fetch related posts');
-  //     const data = await res.json();
-
-  //     // Exclude current post from related list
-  //     const filtered = data.filter((p) => p._id !== id);
-  //     setRelatedPosts(filtered);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchPostById();
-  // }, [id]);
-
-  useEffect(() => {
-    const fetchPostById = async () => {
-      try {
-        setLoading(true);
-        const res = await fetch(`/api/posts/${id}`, {
-          credentials: 'include',
-        });
-        if (!res.ok) throw new Error('Failed to fetch');
-        const data = await res.json();
-        setPost(data);
-
-        if (data.category) {
-          fetchRelatedPosts(data.category, data._id);
-        }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
+      if (session?.user?.id && Array.isArray(data.likes)) {
+        setLiked(data.likes.includes(session.user.id));
+        setLikesCount(data.likes.length);
       }
-    };
 
-    fetchPostById();
-  }, [id]);
+      if (data.category) {
+        fetchRelatedPosts(data.category, data._id);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const fetchRelatedPosts = async (category, currentPostId) => {
     try {
@@ -103,6 +65,31 @@ const BlogDetailsPage = () => {
       console.error(error);
     }
   };
+
+  const handleToggleLike = async () => {
+    try {
+      const res = await fetch(`/api/posts/${id}/like`, {
+        method: 'PATCH',
+        credentials: 'include',
+      });
+
+      if (!res.ok) throw new Error('Failed to toggle like');
+
+      const data = await res.json();
+      setLiked(data.liked);
+      setLikesCount(data.likesCount);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      fetchPostById();
+    }
+  }, [id, status]);
+
+  console.log(liked, likesCount, post);
 
   return (
     <>
@@ -146,6 +133,15 @@ const BlogDetailsPage = () => {
             <div className={styles.row}>
               <div className={styles.col}>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
+
+                <button className="btn" onClick={handleToggleLike}>
+                  {liked ? (
+                    <PiHeartStraightFill color="red" />
+                  ) : (
+                    <PiHeartStraightLight />
+                  )}
+                  <span>{likesCount || 0}</span>
+                </button>
               </div>
 
               <div className={styles.col}>
@@ -202,3 +198,13 @@ const BlogDetailsPage = () => {
 };
 
 export default BlogDetailsPage;
+
+{
+  /* <div className={styles.liked}>
+  <PiHeartStraightFill className={styles.icon} />
+  <PiHeartStraightLight className={styles.icon} />
+  <span>2</span>
+  <AiOutlineComment className={styles.icon} />
+  <span>4</span>
+</div>; */
+}

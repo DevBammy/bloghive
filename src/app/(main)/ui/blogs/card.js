@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import blogImage from '../../../../../public/maleAvatar.jpg';
-import styles from './card.module.scss';
 import { formatDate } from '@/lib/formatDate';
+import styles from './card.module.scss';
 
 const Card = ({ post }) => {
   const postId = post._id;
@@ -21,16 +21,20 @@ const Card = ({ post }) => {
         <div className={styles.cardBottom}>
           <div className={styles.card__info}>
             <Link href="null" className={styles.card__author}>
-              <Image
-                src={post.author.image || blogImage}
-                alt="Blog Post"
-                width={40}
-                height={40}
-              />
-              <p>{post.author.name}</p>
+              <div className={styles.authorImage}>
+                <Image
+                  src={post.author.image || blogImage}
+                  alt="Blog Post"
+                  width={40}
+                  height={40}
+                />
+                <div className={styles.authorBio}>
+                  <p>{post.author.name}</p>
+                  <p>{formatDate(post.createdAt)}</p>
+                </div>
+              </div>
             </Link>
           </div>
-          <p>{formatDate(post.createdAt)}</p>
         </div>
       </div>
     </div>
