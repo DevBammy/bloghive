@@ -142,10 +142,8 @@ const BlogDetailsPage = () => {
   };
 
   useEffect(() => {
-    if (status === 'authenticated') {
-      fetchPostById();
-      fetchComment();
-    }
+    fetchPostById();
+    fetchComment();
   }, [id, status]);
 
   return (
