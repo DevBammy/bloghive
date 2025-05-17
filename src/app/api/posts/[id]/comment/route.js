@@ -36,13 +36,17 @@ export async function POST(req, { params }) {
 }
 
 export async function GET(_, { params }) {
-  await connectToDB();
-  const comments = await Comment.find({ postId: params.id }).populate(
-    'userId',
-    'name email'
-  );
+  try {
+    await connectToDB();
+    const post = await Post.findById(params.id).populate(
+      'comments.user',
+      'name image'
+    );
+    if (!post) return new Response('Post not found', { status: 404 });
 
-  if (!comments) return new Response('No comments found', { status: 404 });
-
-  return Response.json(comments);
+    return Response.json(post.comments);
+  } catch (err) {
+    console.error(err);
+    return new Response('Server error', { status: 500 });
+  }
 }

@@ -1,18 +1,19 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import authorImage from '../../../../../public/avatar3.jpg';
-import { FaXTwitter, FaFacebook, FaLinkedin } from 'react-icons/fa6';
 import Link from 'next/link';
-import Card from '../../ui/blogs/card';
-import Newsletter from '../../ui/home/hero/newsletter';
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import authorImage from '../../../../../public/avatar3.jpg';
+import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
+import { FaXTwitter, FaFacebook, FaLinkedin } from 'react-icons/fa6';
+import { AiOutlineComment } from 'react-icons/ai';
+import { IoCloseCircle } from 'react-icons/io5';
+import Newsletter from '../../ui/home/hero/newsletter';
 import Loading from '../../ui/elements/loading';
 import { formatDate } from '@/lib/formatDate';
-import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import { AiOutlineComment } from 'react-icons/ai';
+import Card from '../../ui/blogs/card';
 import styles from '../blogs.module.scss';
 
 const BlogDetailsPage = () => {
@@ -23,7 +24,12 @@ const BlogDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(null);
   const [likesCount, setLikesCount] = useState(null);
+  const [showComment, setShowComment] = useState(false);
+  const [comment, setComment] = useState([]);
+  const [commenting, setCommenting] = useState(false);
+  const [newComment, setNewComment] = useState('');
 
+  // fetch all posts
   const fetchPostById = async () => {
     try {
       setLoading(true);
@@ -49,6 +55,9 @@ const BlogDetailsPage = () => {
     }
   };
 
+  console.log(comment);
+
+  // fetch related posts
   const fetchRelatedPosts = async (category, currentPostId) => {
     try {
       const res = await fetch(`/api/posts?category=${category}`, {
@@ -66,6 +75,7 @@ const BlogDetailsPage = () => {
     }
   };
 
+  // like a post
   const handleToggleLike = async () => {
     try {
       const res = await fetch(`/api/posts/${id}/like`, {
@@ -83,13 +93,60 @@ const BlogDetailsPage = () => {
     }
   };
 
+  // fetch all comment
+  const fetchComment = async () => {
+    try {
+      setCommenting(true);
+      const res = await fetch(`/api/posts/${id}/comment`, {
+        method: 'GET',
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      console.log('Fetched comments:', data);
+      setComment(data);
+      setCommenting(false);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setCommenting(false);
+    }
+  };
+
+  // post a comment
+  const handleSubmitComment = async (e) => {
+    e.preventDefault();
+
+    try {
+      setCommenting(true);
+      const res = await fetch(`/api/posts/${id}/comment`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({ content: newComment }),
+      });
+
+      if (!res.ok) throw new Error('Failed to post comment');
+
+      const data = await res.json();
+      setCommenting(false);
+      setComment((prev) => [...prev, data.comment]);
+      setNewComment('');
+      setShowComment(false);
+    } catch (err) {
+      console.error(err);
+      setCommenting(false);
+    }
+  };
+
   useEffect(() => {
     if (status === 'authenticated') {
       fetchPostById();
+      fetchComment();
     }
   }, [id, status]);
-
-  console.log(liked, likesCount, post);
 
   return (
     <>
@@ -142,6 +199,64 @@ const BlogDetailsPage = () => {
                   )}
                   <span>{likesCount || 0}</span>
                 </button>
+
+                <div className={styles.comment}>
+                  <h3>All Comment</h3>
+
+                  {commenting ? (
+                    <p>Loading comments...</p>
+                  ) : comment.length > 0 ? (
+                    comment.map((com, i) => (
+                      <div key={i} className={styles.commentItem}>
+                        <div className={styles.commentAuthor}>
+                          <Image
+                            src={com.user?.image || authorImage}
+                            alt={com.user?.name}
+                            width={40}
+                            height={40}
+                          />
+                          <strong>{com.user?.name || 'Anonymous'}</strong>
+                        </div>
+                        <p>{com.content}</p>
+                      </div>
+                    ))
+                  ) : (
+                    <p>This post has no comment(s) yet.</p>
+                  )}
+
+                  <div
+                    className={
+                      showComment
+                        ? `${styles.commentBox} ${styles.show}`
+                        : styles.commentBox
+                    }
+                  >
+                    <IoCloseCircle
+                      className={styles.icon}
+                      onClick={() => setShowComment((prev) => !prev)}
+                    />
+                    <form
+                      className={styles.commentContent}
+                      onSubmit={handleSubmitComment}
+                    >
+                      <textarea
+                        name="comment"
+                        value={newComment}
+                        onChange={(e) => setNewComment(e.target.value)}
+                        placeholder="type your comment here"
+                      ></textarea>
+                      <button className="btn" type="submit">
+                        {commenting ? 'Commenting' : 'comment'}
+                      </button>
+                    </form>
+                  </div>
+                  <button
+                    className="btn"
+                    onClick={() => setShowComment((prev) => !prev)}
+                  >
+                    Add new comment
+                  </button>
+                </div>
               </div>
 
               <div className={styles.col}>
