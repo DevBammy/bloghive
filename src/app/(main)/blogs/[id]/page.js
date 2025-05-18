@@ -2,20 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
-import authorImage from '../../../../../public/avatar3.jpg';
-import { PiHeartStraightFill, PiHeartStraightLight } from 'react-icons/pi';
-import { FaXTwitter, FaFacebook, FaLinkedin } from 'react-icons/fa6';
-import { AiOutlineComment } from 'react-icons/ai';
-import { IoCloseCircle } from 'react-icons/io5';
 import Newsletter from '../../ui/home/hero/newsletter';
 import Loading from '../../ui/elements/loading';
 import { formatDate } from '@/lib/formatDate';
-import Card from '../../ui/blogs/card';
-import styles from '../blogs.module.scss';
 import { toast } from 'react-toastify';
+import RelatedNews from '../../ui/blogs/relatedNews';
+import LikeButton from '../../ui/blogs/likeButton';
+import Comment from '../../ui/blogs/comment';
+import Author from '../../ui/blogs/author';
+import styles from '../blogs.module.scss';
 
 const BlogDetailsPage = () => {
   const { data: session, status } = useSession();
@@ -25,6 +22,7 @@ const BlogDetailsPage = () => {
   const [loading, setLoading] = useState(true);
   const [liked, setLiked] = useState(null);
   const [likesCount, setLikesCount] = useState(null);
+  const [liking, setLiking] = useState(false);
   const [showComment, setShowComment] = useState(false);
   const [comment, setComment] = useState([]);
   const [commenting, setCommenting] = useState(false);
@@ -77,6 +75,7 @@ const BlogDetailsPage = () => {
   // like a post
   const handleToggleLike = async () => {
     try {
+      setLiking(true);
       const res = await fetch(`/api/posts/${id}/like`, {
         method: 'PATCH',
         credentials: 'include',
@@ -85,10 +84,12 @@ const BlogDetailsPage = () => {
       if (!res.ok) throw new Error('Failed to toggle like');
 
       const data = await res.json();
+      setLiking(false);
       setLiked(data.liked);
       setLikesCount(data.likesCount);
       toast.success('Likes toggled');
     } catch (err) {
+      setLiking(false);
       toast.error('Failed to toggle like');
     }
   };
@@ -116,6 +117,8 @@ const BlogDetailsPage = () => {
   // post a comment
   const handleSubmitComment = async (e) => {
     e.preventDefault();
+
+    if (!newComment) return toast.error('write a comment to post');
 
     try {
       setCommenting(true);
@@ -190,122 +193,31 @@ const BlogDetailsPage = () => {
               <div className={styles.col}>
                 <p dangerouslySetInnerHTML={{ __html: post.content }}></p>
 
-                <button className="btn" onClick={handleToggleLike}>
-                  {liked ? (
-                    <PiHeartStraightFill color="red" />
-                  ) : (
-                    <PiHeartStraightLight />
-                  )}
-                  <span>{likesCount || 0}</span>
-                </button>
+                <LikeButton
+                  handleToggleLike={handleToggleLike}
+                  liked={liked}
+                  liking={liking}
+                  likesCount={likesCount}
+                />
 
-                <div className={styles.comment}>
-                  <h3>All Comment</h3>
-
-                  {commenting ? (
-                    <p>Loading comments...</p>
-                  ) : comment.length > 0 ? (
-                    comment.map((com, i) => (
-                      <div key={i} className={styles.commentItem}>
-                        <div className={styles.commentAuthor}>
-                          <Image
-                            src={com.user?.image || authorImage}
-                            alt={com.user?.name}
-                            width={40}
-                            height={40}
-                          />
-                          <strong>{com.user?.name || 'Anonymous'}</strong>
-                        </div>
-                        <p>{com.content}</p>
-                      </div>
-                    ))
-                  ) : (
-                    <p>This post has no comment(s) yet.</p>
-                  )}
-
-                  <div
-                    className={
-                      showComment
-                        ? `${styles.commentBox} ${styles.show}`
-                        : styles.commentBox
-                    }
-                  >
-                    <IoCloseCircle
-                      className={styles.icon}
-                      onClick={() => setShowComment((prev) => !prev)}
-                    />
-                    <form
-                      className={styles.commentContent}
-                      onSubmit={handleSubmitComment}
-                    >
-                      <textarea
-                        name="comment"
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="type your comment here"
-                      ></textarea>
-                      <button className="btn" type="submit">
-                        {commenting ? 'Commenting' : 'comment'}
-                      </button>
-                    </form>
-                  </div>
-                  <button
-                    className="btn"
-                    onClick={() => setShowComment((prev) => !prev)}
-                  >
-                    Add new comment
-                  </button>
-                </div>
+                <Comment
+                  commenting={commenting}
+                  comment={comment}
+                  showComment={showComment}
+                  setShowComment={setShowComment}
+                  handleSubmitComment={handleSubmitComment}
+                  newComment={newComment}
+                  setNewComment={setNewComment}
+                />
               </div>
 
               <div className={styles.col}>
-                <h3>AUTHOR</h3>
-
-                <div className={styles.authorImage}>
-                  <Image
-                    src={post.author.image || authorImage}
-                    alt="author images"
-                    width={500}
-                    height={500}
-                  />
-                </div>
-                <h2>{post.author.name}</h2>
-                <p>{post.author.desc || 'Best author 2025'}</p>
-
-                <h3>SHARE</h3>
-
-                <div className={styles.socialShare}>
-                  <Link href="null">
-                    <FaXTwitter />
-                  </Link>
-                  <Link href="null">
-                    <FaFacebook />
-                  </Link>
-                  <Link href="null">
-                    <FaLinkedin />
-                  </Link>
-                </div>
+                <Author post={post} />
               </div>
             </div>
           </div>
 
-          <div className={styles.relatedNewsTitle}>
-            <h1>related news</h1>
-            <Link href="/blogs" className="btn_white btn">
-              SEE ALL
-            </Link>
-          </div>
-
-          <div className={styles.relatedNews}>
-            {relatedPosts.length > 0 ? (
-              relatedPosts.map((relatedPost) => (
-                <Card key={relatedPost._id} post={relatedPost} />
-              ))
-            ) : (
-              <p>No related posts found.</p>
-            )}
-          </div>
-
+          <RelatedNews relatedPosts={relatedPosts} />
           <Newsletter />
         </section>
       )}
@@ -314,13 +226,3 @@ const BlogDetailsPage = () => {
 };
 
 export default BlogDetailsPage;
-
-{
-  /* <div className={styles.liked}>
-  <PiHeartStraightFill className={styles.icon} />
-  <PiHeartStraightLight className={styles.icon} />
-  <span>2</span>
-  <AiOutlineComment className={styles.icon} />
-  <span>4</span>
-</div>; */
-}

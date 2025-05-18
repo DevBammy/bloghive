@@ -108,3 +108,162 @@
     }
   }
 }
+
+.relatedNews {
+  width: 100%;
+  height: max-content;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  align-items: flex-start;
+  justify-content: center;
+
+  @include sm {
+    grid-template-columns: 1fr;
+  }
+}
+
+.relatedNewsTitle {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-top: 2px solid $text;
+}
+
+.comment {
+  margin: 2rem 0;
+  width: 100%;
+  height: max-content;
+
+  .commentItem {
+    width: 80%;
+    margin: 1rem 0;
+    background-color: $bg-alt;
+    padding: 1rem;
+    border-radius: 1rem;
+    gap: 0.5rem;
+
+    .commentAuthor {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+    }
+
+    p {
+      color: $text;
+    }
+  }
+
+  .commentBox {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+    z-index: 1000;
+
+    .icon {
+      position: absolute;
+      top: 5%;
+      right: 5%;
+      font-size: 3rem;
+      color: $card;
+      cursor: pointer;
+    }
+
+    .commentContent {
+      width: 50%;
+      height: max-content;
+      min-height: 400px;
+      background-color: $card;
+      padding: 1rem;
+      border-radius: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      @include sm {
+        width: 90%;
+      }
+
+      textarea {
+        width: 100%;
+        height: max-content;
+        min-height: 350px;
+        background-color: $bg;
+        padding: 1rem;
+        border-radius: 1rem;
+        font-size: 1.4rem;
+      }
+
+      .btn {
+        display: none;
+        font-size: 0.5rem;
+      }
+    }
+
+    &.show {
+      display: flex;
+    }
+  }
+}
+
+.col {
+  border-left: 2px solid $text;
+  padding-left: 2rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  @include sm {
+    border-left: 0;
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .authorImage {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 4rem;
+  }
+}
+
+.socialShare {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+
+  a {
+    font-size: 1.4rem;
+  }
+}
