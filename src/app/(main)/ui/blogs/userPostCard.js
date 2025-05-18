@@ -6,11 +6,11 @@ import blogImage from '../../../../../public/maleAvatar.jpg';
 import { formatDate } from '@/lib/formatDate';
 import styles from './card.module.scss';
 
-const Card = ({ post }) => {
+const UserPostCard = ({ post, handleEdit }) => {
   const postId = post._id;
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${styles.userCard}`}>
       <Link href={`/blogs/${postId}`} className={styles.card__image}>
         <Image src={post.image} alt="Blog Post" width={1000} height={1000} />
       </Link>
@@ -41,8 +41,15 @@ const Card = ({ post }) => {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={() => handleEdit(postId)}
+        className={`btn ${styles.btn}`}
+      >
+        Edit Post
+      </button>
     </div>
   );
 };
 
-export default Card;
+export default UserPostCard;

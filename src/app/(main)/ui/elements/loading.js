@@ -6,7 +6,7 @@ const Loading = () => {
   return (
     <section className={styles.loading}>
       <div className={styles.img}>
-        <Image src={loadingImage} alt="loading image" />
+        <Image src={loadingImage} alt="loading image" priority />
       </div>
       <h2>Loading...</h2>
     </section>

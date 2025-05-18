@@ -7,25 +7,28 @@ import styles from './blogs.module.scss';
 import Loading from '../ui/elements/loading';
 import Empty from '../ui/elements/empty';
 import { toast } from 'react-toastify';
+import { useSearchParams } from 'next/navigation';
 
 const BlogPage = () => {
+  const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
+  const query = searchParams.get('');
   const [posts, setPosts] = useState([]);
-  const [filteredPost, setFilteredPost] = useState([]);
 
   const fetchAllPosts = async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/posts/', { credentials: 'include' });
+      const res = await fetch(`/api/posts?query=${query}`, {
+        credentials: 'include',
+      });
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
       setPosts(data);
-      const filtered = data.filter((p) => p._id !== id);
-      setFilteredPost(filtered.slice(0, 2));
 
       setLoading(false);
     } catch (error) {
-      toast.error('Failed to fetch');
+      toast.error('Failed to fetch', error);
+      console.log(error);
       setLoading(false);
     }
   };
@@ -50,12 +53,6 @@ const BlogPage = () => {
         <Empty />
       ) : (
         <>
-          <div className={styles.featuredBlogs}>
-            {filteredPost.map((post) => (
-              <Card post={post} key={post._id} />
-            ))}
-          </div>
-
           <div className={styles.allBlogs}>
             {posts?.map((post) => (
               <Card post={post} key={post._id} />

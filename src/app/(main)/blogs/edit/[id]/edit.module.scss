@@ -1,0 +1,39 @@
+@use '../../../../styles/variables' as *;
+
+.editPost {
+  width: 100%;
+  height: max-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  h1 {
+    margin: 1rem 0;
+  }
+
+  form {
+    width: 60%;
+    height: max-content;
+    background-color: $card;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: $shadow;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    input {
+      width: 100%;
+      background-color: $bg;
+      padding: 1rem;
+      height: max-content;
+      margin: 1rem 0;
+    }
+
+    .quil {
+      margin-bottom: 4rem;
+    }
+  }
+}

@@ -2,8 +2,9 @@ import Card from '../blogs/card';
 import styles from './profile.module.scss';
 import Empty from '../elements/empty';
 import Loading from '../elements/loading';
+import UserPostCard from '../blogs/userPostCard';
 
-const UserPosts = ({ post, loading }) => {
+const UserPosts = ({ post, loading, handleEdit }) => {
   return (
     <div className={styles.userPosts}>
       {loading ? (
@@ -11,7 +12,9 @@ const UserPosts = ({ post, loading }) => {
       ) : post.length === 0 ? (
         <Empty />
       ) : (
-        post?.map((post) => <Card post={post} key={post._id} />)
+        post?.map((post) => (
+          <UserPostCard post={post} key={post._id} handleEdit={handleEdit} />
+        ))
       )}
       {/* 
     <div>

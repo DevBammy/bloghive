@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { CiSearch } from 'react-icons/ci';
 import { useSession, signIn, signOut } from 'next-auth/react';
@@ -9,21 +10,37 @@ import { IoCloseCircleOutline } from 'react-icons/io5';
 import styles from './header.module.scss';
 
 const Header = () => {
+  const [searchInput, setSearchInput] = useState('');
+  const router = useRouter();
   const [showNav, setShowNav] = useState(false);
   const { data: session } = useSession();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (!searchInput.trim()) return;
+
+    // Redirect with query string
+    router.push(`/blogs/?query=${encodeURIComponent(searchInput.trim())}`);
+    setSearchInput('');
+  };
 
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.header__logo}>
         <h1>BlogHive</h1>
       </Link>
-      <div className={styles.search}>
-        <input type="text" placeholder="What are you looking for?" />
+      <form onSubmit={handleSearch} className={styles.search}>
+        <input
+          type="text"
+          placeholder="What are you looking for?"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
 
-        <button>
+        <button type="submit">
           <CiSearch className={styles.icon} />
         </button>
-      </div>
+      </form>
 
       <div
         className={

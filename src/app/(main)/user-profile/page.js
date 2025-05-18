@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { FaPenAlt, FaRegUserCircle, FaSignOutAlt } from 'react-icons/fa';
 import { FaLock } from 'react-icons/fa6';
@@ -7,9 +10,7 @@ import PersonalInfo from '../ui/profile/personalInfo';
 import UserPosts from '../ui/profile/posts';
 import PasswordManager from '../ui/profile/passwordManager';
 import LogOut from '../ui/profile/logout';
-import { useEffect, useState } from 'react';
 import styles from './profile.module.scss';
-import Link from 'next/link';
 import { toast } from 'react-toastify';
 
 const ProfilePage = () => {
@@ -17,6 +18,7 @@ const ProfilePage = () => {
   const [loading, setLoading] = useState(false);
   const [view, setView] = useState('personal');
   const [posts, setPosts] = useState([]);
+  const router = useRouter();
 
   useEffect(() => {
     if (status !== 'authenticated') return;
@@ -37,10 +39,9 @@ const ProfilePage = () => {
     fetchMyPosts();
   }, [status]);
 
-  // const handleEdit = (postId) => {
-  //   // Redirect to the edit page
-  //   router.push(`/posts/edit/${postId}`);
-  // };
+  const handleEdit = (postId) => {
+    router.push(`/blogs/edit/${postId}`);
+  };
 
   // const handleDelete = async (postId) => {
   //   const confirmDelete = confirm('Are you sure you want to delete this post?');
@@ -138,7 +139,7 @@ const ProfilePage = () => {
           {view === 'personal' ? (
             <PersonalInfo user={session?.user} />
           ) : view === 'posts' ? (
-            <UserPosts post={posts} loading={loading} />
+            <UserPosts post={posts} loading={loading} handleEdit={handleEdit} />
           ) : (
             <LogOut setView={setView} />
           )}

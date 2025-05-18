@@ -18,9 +18,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <>
-      <ToastContainer />
-      {children}
-    </>
+    <html lang="en">
+      <body className={`${SyneSans.variable} ${UrbanistSans.variable} layout`}>
+        <ToastContainer />
+        {children}
+      </body>
+    </html>
   );
 }
