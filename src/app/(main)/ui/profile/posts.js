@@ -4,7 +4,7 @@ import Empty from '../elements/empty';
 import Loading from '../elements/loading';
 import UserPostCard from '../blogs/userPostCard';
 
-const UserPosts = ({ post, loading, handleEdit }) => {
+const UserPosts = ({ post, loading, handleEdit, handleDelete }) => {
   return (
     <div className={styles.userPosts}>
       {loading ? (
@@ -13,21 +13,14 @@ const UserPosts = ({ post, loading, handleEdit }) => {
         <Empty />
       ) : (
         post?.map((post) => (
-          <UserPostCard post={post} key={post._id} handleEdit={handleEdit} />
+          <UserPostCard
+            post={post}
+            key={post._id}
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+          />
         ))
       )}
-      {/* 
-    <div>
-      <h1>My Posts</h1>
-      {posts.map((post) => (
-        <div key={post._id}>
-          <h2>{post.title}</h2>
-          <p>{post.content.substring(0, 100)}...</p>
-              <button onClick={() => handleEdit(post._id)}>Edit</button>
-          <button onClick={() => handleDelete(post._id)}>Delete</button>
-        </div>
-      ))}
-    </div> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import blogImage from '../../../../../public/maleAvatar.jpg';
 import { formatDate } from '@/lib/formatDate';
 import styles from './card.module.scss';
 
-const UserPostCard = ({ post, handleEdit }) => {
+const UserPostCard = ({ post, handleEdit, handleDelete }) => {
   const postId = post._id;
 
   return (
@@ -47,6 +47,12 @@ const UserPostCard = ({ post, handleEdit }) => {
         className={`btn ${styles.btn}`}
       >
         Edit Post
+      </button>
+      <button
+        onClick={() => handleDelete(postId)}
+        className={`btn ${styles.btn_delete}`}
+      >
+        Delete Post
       </button>
     </div>
   );

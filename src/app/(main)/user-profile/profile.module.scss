@@ -11,19 +11,6 @@
     margin: 2rem 0;
   }
 
-  .title {
-    width: 100%;
-    height: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 2rem 0;
-
-    @include sm {
-      margin: 0;
-    }
-  }
-
   .profileRow {
     position: relative;
     width: 100%;

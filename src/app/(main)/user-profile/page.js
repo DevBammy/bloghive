@@ -1,17 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { FaPenAlt, FaRegUserCircle, FaSignOutAlt } from 'react-icons/fa';
-import { FaLock } from 'react-icons/fa6';
 import PersonalInfo from '../ui/profile/personalInfo';
 import UserPosts from '../ui/profile/posts';
-import PasswordManager from '../ui/profile/passwordManager';
 import LogOut from '../ui/profile/logout';
 import styles from './profile.module.scss';
 import { toast } from 'react-toastify';
+import Title from '../ui/profile/title';
 
 const ProfilePage = () => {
   const { data: session, status } = useSession();
@@ -43,22 +41,22 @@ const ProfilePage = () => {
     router.push(`/blogs/edit/${postId}`);
   };
 
-  // const handleDelete = async (postId) => {
-  //   const confirmDelete = confirm('Are you sure you want to delete this post?');
-  //   if (confirmDelete) {
-  //     const res = await fetch(`/api/posts/id/${postId}`, {
-  //       method: 'DELETE',
-  //     });
+  const handleDelete = async (postId) => {
+    const confirmDelete = confirm('Are you sure you want to delete this post?');
+    if (confirmDelete) {
+      const res = await fetch(`/api/posts/${postId}`, {
+        method: 'DELETE',
+      });
 
-  //     if (res.ok) {
-  //       alert('Post deleted!');
-  //       // Refresh posts after deletion
-  //       setPosts(posts.filter((post) => post._id !== postId));
-  //     } else {
-  //       alert('Failed to delete the post');
-  //     }
-  //   }
-  // };
+      if (res.ok) {
+        toast.success('Post deleted!');
+        // Refresh posts after deletion
+        setPosts(posts.filter((post) => post._id !== postId));
+      } else {
+        toast.error('Failed to delete the post');
+      }
+    }
+  };
 
   // const handleProfileUpdate = async () => {
   //   const res = await fetch('/api/users/me', {
@@ -78,29 +76,7 @@ const ProfilePage = () => {
 
   return (
     <section className={styles.profile}>
-      <div className={styles.title}>
-        <div>
-          <h2>My Account</h2>
-          <h4>
-            Home /{' '}
-            {view === 'personal'
-              ? 'My Account'
-              : view === 'posts'
-              ? 'My Posts'
-              : view === 'password'
-              ? 'Password Manager'
-              : 'Logout'}
-          </h4>
-        </div>
-
-        {view === 'posts' ? (
-          <Link href="/create-post" className="btn">
-            Add New Post
-          </Link>
-        ) : (
-          ''
-        )}
-      </div>
+      <Title view={view} />
 
       <div className={styles.profileRow}>
         <div className={styles.profileControl}>
@@ -139,7 +115,12 @@ const ProfilePage = () => {
           {view === 'personal' ? (
             <PersonalInfo user={session?.user} />
           ) : view === 'posts' ? (
-            <UserPosts post={posts} loading={loading} handleEdit={handleEdit} />
+            <UserPosts
+              post={posts}
+              loading={loading}
+              handleEdit={handleEdit}
+              handleDelete={handleDelete}
+            />
           ) : (
             <LogOut setView={setView} />
           )}
