@@ -58,22 +58,6 @@ const ProfilePage = () => {
     }
   };
 
-  // const handleProfileUpdate = async () => {
-  //   const res = await fetch('/api/users/me', {
-  //     method: 'PATCH',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({
-  //       name,
-  //       image,
-  //       email,
-  //       password, // Only if user filled it
-  //     }),
-  //   });
-
-  //   const updatedUser = await res.json();
-  //   console.log(updatedUser);
-  // };
-
   return (
     <section className={styles.profile}>
       <Title view={view} />
@@ -95,13 +79,6 @@ const ProfilePage = () => {
             <span>My Posts</span>
           </button>
 
-          {/* <button
-            onClick={() => setView('password')}
-            className={view === 'password' ? styles.active : ''}
-          >
-            <FaLock />
-            <span>Password Manager</span>
-          </button> */}
           <button
             onClick={() => setView('logout')}
             className={view === 'logout' ? styles.active : ''}
@@ -131,7 +108,3 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
-
-// view === 'password' ? (
-//   <PasswordManager />
-// ) :

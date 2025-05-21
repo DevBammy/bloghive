@@ -30,14 +30,17 @@
   }
 
   h2 {
-    margin-bottom: 1rem;
+    margin: 1rem 0;
   }
 
   p {
     margin-bottom: 1rem;
   }
 
-  ol {
+  ul {
+    list-style-type: decimal-leading-zero;
+    margin-left: 3rem;
+
     li {
       margin-bottom: 1rem;
     }
